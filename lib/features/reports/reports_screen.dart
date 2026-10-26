@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../app/theme/app_theme.dart';
 import '../../data/models/distributor_models.dart';
 import '../../providers/distributor_provider.dart';
@@ -17,8 +18,18 @@ class KeyReportsScreen extends ConsumerStatefulWidget {
 
 class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
   late int _selectedTab;
-  final List<String> _tabs = ['Stock Report', 'Sales Report', 'Purchase Report', 'Profit & Loss'];
-  final List<String> _dateRanges = ['Today', 'This Week', 'This Month', 'FY 2026-27'];
+  final List<String> _tabs = [
+    'Stock Report',
+    'Sales Report',
+    'Purchase Report',
+    'Profit & Loss',
+  ];
+  final List<String> _dateRanges = [
+    'Today',
+    'This Week',
+    'This Month',
+    'FY 2026-27',
+  ];
   String _selectedRange = 'This Month';
 
   @override
@@ -33,7 +44,11 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
         backgroundColor: const Color(0xFF1E293B),
         content: Row(
           children: [
-            const Icon(Icons.download_done_rounded, color: AppColors.successGreen, size: 20),
+            const Icon(
+              Icons.download_done_rounded,
+              color: AppColors.successGreen,
+              size: 20,
+            ),
             const SizedBox(width: 10),
             Text('$reportName exported to PDF & Excel successfully'),
           ],
@@ -55,11 +70,15 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
               'assets/images/clean_warehouse_backdrop.jpg',
               fit: BoxFit.cover,
               errorBuilder: (_, __, ___) => Container(
-                decoration: const BoxDecoration(gradient: AppColors.warmBackgroundGradient),
+                decoration: const BoxDecoration(
+                  gradient: AppColors.warmBackgroundGradient,
+                ),
               ),
             ),
           ),
-          Positioned.fill(child: Container(color: Colors.black.withOpacity(0.12))),
+          Positioned.fill(
+            child: Container(color: Colors.black.withOpacity(0.12)),
+          ),
 
           SafeArea(
             bottom: false,
@@ -71,7 +90,10 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
                   child: GlassContainer(
                     borderRadius: 24,
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 10,
+                    ),
                     child: Row(
                       children: [
                         InkWell(
@@ -84,7 +106,11 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                               color: Colors.white.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 16),
+                            child: const Icon(
+                              Icons.arrow_back_ios_new_rounded,
+                              color: Colors.white,
+                              size: 16,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 10),
@@ -95,17 +121,28 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                             children: [
                               Text(
                                 'Financial & Operations Reports',
-                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: Colors.white),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.white,
+                                ),
                               ),
                               Text(
                                 'Real-time verified metrics',
-                                style: TextStyle(fontSize: 11, color: Colors.white70),
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.white70,
+                                ),
                               ),
                             ],
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.ios_share_rounded, color: Colors.white, size: 20),
+                          icon: const Icon(
+                            Icons.ios_share_rounded,
+                            color: Colors.white,
+                            size: 20,
+                          ),
                           tooltip: 'Export Statement',
                           onPressed: () => _exportReport(_tabs[_selectedTab]),
                         ),
@@ -128,7 +165,10 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                           borderRadius: BorderRadius.circular(20),
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 200),
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
                             decoration: isSelected
                                 ? GlassTheme.activeChipDecoration
                                 : GlassTheme.inactiveChipDecoration,
@@ -136,8 +176,12 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                               _tabs[idx],
                               style: TextStyle(
                                 fontSize: 13,
-                                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                                color: isSelected ? Colors.white : Colors.white70,
+                                fontWeight: isSelected
+                                    ? FontWeight.w700
+                                    : FontWeight.w500,
+                                color: isSelected
+                                    ? Colors.white
+                                    : Colors.white70,
                               ),
                             ),
                           ),
@@ -155,7 +199,11 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                     children: [
                       const Text(
                         'Period Filter:',
-                        style: TextStyle(fontSize: 12, color: Colors.white70, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.white70,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                       const SizedBox(width: 8),
                       Expanded(
@@ -167,14 +215,24 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                               return Padding(
                                 padding: const EdgeInsets.only(left: 6),
                                 child: InkWell(
-                                  onTap: () => setState(() => _selectedRange = range),
+                                  onTap: () =>
+                                      setState(() => _selectedRange = range),
                                   child: Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 4,
+                                    ),
                                     decoration: BoxDecoration(
-                                      color: isSel ? AppColors.primaryOrange.withOpacity(0.3) : Colors.white.withOpacity(0.1),
+                                      color: isSel
+                                          ? AppColors.primaryOrange.withOpacity(
+                                              0.3,
+                                            )
+                                          : Colors.white.withOpacity(0.1),
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
-                                        color: isSel ? AppColors.primaryOrange : Colors.white24,
+                                        color: isSel
+                                            ? AppColors.primaryOrange
+                                            : Colors.white24,
                                         width: 0.8,
                                       ),
                                     ),
@@ -182,8 +240,12 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                                       range,
                                       style: TextStyle(
                                         fontSize: 11,
-                                        fontWeight: isSel ? FontWeight.w700 : FontWeight.w500,
-                                        color: isSel ? AppColors.primaryOrangeLight : Colors.white70,
+                                        fontWeight: isSel
+                                            ? FontWeight.w700
+                                            : FontWeight.w500,
+                                        color: isSel
+                                            ? AppColors.primaryOrangeLight
+                                            : Colors.white70,
                                       ),
                                     ),
                                   ),
@@ -238,14 +300,28 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Total Warehouse Stock Valuation', style: TextStyle(fontSize: 13, color: Colors.white70)),
+              const Text(
+                'Total Warehouse Stock Valuation',
+                style: TextStyle(fontSize: 13, color: Colors.white70),
+              ),
               const SizedBox(height: 4),
               Row(
                 children: [
-                  const Text('₹', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: AppColors.primaryOrange)),
+                  const Text(
+                    '₹',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w900,
+                      color: AppColors.primaryOrange,
+                    ),
+                  ),
                   Text(
                     ' ${stock.totalValuation.toStringAsFixed(0).replaceAllMapped(RegExp(r"(\d{1,3})(?=(\d{3})+(?!\d))"), (m) => "${m[1]},")}',
-                    style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w900, color: Colors.white),
+                    style: const TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
@@ -253,15 +329,30 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
               Row(
                 children: [
                   Expanded(
-                    child: _buildMetricTile('Active SKUs', '${stock.totalSkus}', Icons.category_outlined, Colors.white),
+                    child: _buildMetricTile(
+                      'Active SKUs',
+                      '${stock.totalSkus}',
+                      Icons.category_outlined,
+                      Colors.white,
+                    ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: _buildMetricTile('Low Stock Items', '${stock.lowStockCount}', Icons.warning_amber_rounded, AppColors.alertPink),
+                    child: _buildMetricTile(
+                      'Low Stock Items',
+                      '${stock.lowStockCount}',
+                      Icons.warning_amber_rounded,
+                      AppColors.alertPink,
+                    ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: _buildMetricTile('Stock Turnover', '${stock.turnoverRatio}x', Icons.autorenew_rounded, AppColors.successGreen),
+                    child: _buildMetricTile(
+                      'Stock Turnover',
+                      '${stock.turnoverRatio}x',
+                      Icons.autorenew_rounded,
+                      AppColors.successGreen,
+                    ),
                   ),
                 ],
               ),
@@ -270,7 +361,14 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
         ),
         const SizedBox(height: 16),
 
-        const Text('Valuation by Product Category', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white)),
+        const Text(
+          'Valuation by Product Category',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
+          ),
+        ),
         const SizedBox(height: 10),
         ListView.separated(
           shrinkWrap: true,
@@ -292,10 +390,21 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(cat['category'] as String, style: const TextStyle(fontWeight: FontWeight.w700, color: Colors.white, fontSize: 14)),
+                      Text(
+                        cat['category'] as String,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                      ),
                       Text(
                         '₹ ${val.toStringAsFixed(0).replaceAllMapped(RegExp(r"(\d{1,3})(?=(\d{3})+(?!\d))"), (m) => "${m[1]},")}',
-                        style: const TextStyle(fontWeight: FontWeight.w800, color: AppColors.primaryOrangeLight, fontSize: 14),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.primaryOrangeLight,
+                          fontSize: 14,
+                        ),
                       ),
                     ],
                   ),
@@ -303,8 +412,20 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('$items Unique Products', style: const TextStyle(fontSize: 12, color: Colors.white60)),
-                      Text('${percent.toStringAsFixed(1)}% of total', style: const TextStyle(fontSize: 12, color: Colors.white60)),
+                      Text(
+                        '$items Unique Products',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.white60,
+                        ),
+                      ),
+                      Text(
+                        '${percent.toStringAsFixed(1)}% of total',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.white60,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 8),
@@ -313,7 +434,9 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                     child: LinearProgressIndicator(
                       value: percent / 100,
                       backgroundColor: Colors.white12,
-                      valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primaryOrange),
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                        AppColors.primaryOrange,
+                      ),
                       minHeight: 6,
                     ),
                   ),
@@ -336,25 +459,46 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Gross Distribution Sales', style: TextStyle(fontSize: 13, color: Colors.white70)),
+              const Text(
+                'Gross Distribution Sales',
+                style: TextStyle(fontSize: 13, color: Colors.white70),
+              ),
               const SizedBox(height: 4),
               Row(
                 children: [
-                  const Text('₹', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: AppColors.primaryOrange)),
+                  const Text(
+                    '₹',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w900,
+                      color: AppColors.primaryOrange,
+                    ),
+                  ),
                   Text(
                     ' ${sales.totalRevenue.toStringAsFixed(0).replaceAllMapped(RegExp(r"(\d{1,3})(?=(\d{3})+(?!\d))"), (m) => "${m[1]},")}',
-                    style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w900, color: Colors.white),
+                    style: const TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: AppColors.successGreen.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
                       '+${sales.monthlyGrowthPercent}% vs last mo',
-                      style: const TextStyle(color: AppColors.successGreen, fontSize: 11, fontWeight: FontWeight.w700),
+                      style: const TextStyle(
+                        color: AppColors.successGreen,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ],
@@ -363,11 +507,21 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
               Row(
                 children: [
                   Expanded(
-                    child: _buildMetricTile('Fulfilled Orders', '${sales.totalOrders}', Icons.local_shipping_outlined, Colors.white),
+                    child: _buildMetricTile(
+                      'Fulfilled Orders',
+                      '${sales.totalOrders}',
+                      Icons.local_shipping_outlined,
+                      Colors.white,
+                    ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: _buildMetricTile('Avg Order Value', '₹ ${sales.averageOrderValue.toStringAsFixed(0)}', Icons.receipt_outlined, AppColors.primaryOrangeLight),
+                    child: _buildMetricTile(
+                      'Avg Order Value',
+                      '₹ ${sales.averageOrderValue.toStringAsFixed(0)}',
+                      Icons.receipt_outlined,
+                      AppColors.primaryOrangeLight,
+                    ),
                   ),
                 ],
               ),
@@ -376,7 +530,14 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
         ),
         const SizedBox(height: 16),
 
-        const Text('Top Performing Products by Sales', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white)),
+        const Text(
+          'Top Performing Products by Sales',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
+          ),
+        ),
         const SizedBox(height: 10),
         ListView.separated(
           shrinkWrap: true,
@@ -401,7 +562,14 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                       shape: BoxShape.circle,
                     ),
                     child: Center(
-                      child: Text('${idx + 1}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 13)),
+                      child: Text(
+                        '${idx + 1}',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 13,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -409,15 +577,32 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(p['name'] as String, style: const TextStyle(fontWeight: FontWeight.w700, color: Colors.white, fontSize: 14)),
+                        Text(
+                          p['name'] as String,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
                         const SizedBox(height: 2),
-                        Text('$units Units Dispatched', style: const TextStyle(fontSize: 12, color: Colors.white60)),
+                        Text(
+                          '$units Units Dispatched',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.white60,
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   Text(
                     '₹ ${rev.toStringAsFixed(0).replaceAllMapped(RegExp(r"(\d{1,3})(?=(\d{3})+(?!\d))"), (m) => "${m[1]},")}',
-                    style: const TextStyle(fontWeight: FontWeight.w800, color: Colors.white, fontSize: 14),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
                   ),
                 ],
               ),
@@ -438,14 +623,28 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Total Supplier Purchases (YTD)', style: TextStyle(fontSize: 13, color: Colors.white70)),
+              const Text(
+                'Total Supplier Purchases (YTD)',
+                style: TextStyle(fontSize: 13, color: Colors.white70),
+              ),
               const SizedBox(height: 4),
               Row(
                 children: [
-                  const Text('₹', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: AppColors.primaryOrange)),
+                  const Text(
+                    '₹',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w900,
+                      color: AppColors.primaryOrange,
+                    ),
+                  ),
                   Text(
                     ' ${purchase.totalPurchases.toStringAsFixed(0).replaceAllMapped(RegExp(r"(\d{1,3})(?=(\d{3})+(?!\d))"), (m) => "${m[1]},")}',
-                    style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w900, color: Colors.white),
+                    style: const TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
@@ -453,7 +652,12 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
               Row(
                 children: [
                   Expanded(
-                    child: _buildMetricTile('Active Suppliers', '${purchase.activeSuppliersCount}', Icons.handshake_outlined, Colors.white),
+                    child: _buildMetricTile(
+                      'Active Suppliers',
+                      '${purchase.activeSuppliersCount}',
+                      Icons.handshake_outlined,
+                      Colors.white,
+                    ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
@@ -471,7 +675,14 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
         ),
         const SizedBox(height: 16),
 
-        const Text('Purchases by Partner Supplier', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white)),
+        const Text(
+          'Purchases by Partner Supplier',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
+          ),
+        ),
         const SizedBox(height: 10),
         ListView.separated(
           shrinkWrap: true,
@@ -491,7 +702,14 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(s['name'] as String, style: const TextStyle(fontWeight: FontWeight.w700, color: Colors.white, fontSize: 14)),
+                        Text(
+                          s['name'] as String,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
                         const SizedBox(height: 3),
                         GlassStatusBadge(status: s['status'] as String),
                       ],
@@ -499,7 +717,11 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                   ),
                   Text(
                     '₹ ${amt.toStringAsFixed(0).replaceAllMapped(RegExp(r"(\d{1,3})(?=(\d{3})+(?!\d))"), (m) => "${m[1]},")}',
-                    style: const TextStyle(fontWeight: FontWeight.w800, color: AppColors.primaryOrangeLight, fontSize: 15),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.primaryOrangeLight,
+                      fontSize: 15,
+                    ),
                   ),
                 ],
               ),
@@ -525,18 +747,30 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Expanded(
-                    child: Text('Net Distribution Profit', style: TextStyle(fontSize: 13, color: Colors.white70)),
+                    child: Text(
+                      'Net Distribution Profit',
+                      style: TextStyle(fontSize: 13, color: Colors.white70),
+                    ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: AppColors.successGreen.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: AppColors.successGreen.withOpacity(0.4)),
+                      border: Border.all(
+                        color: AppColors.successGreen.withOpacity(0.4),
+                      ),
                     ),
                     child: Text(
                       'Net Margin: ${pl.netMarginPercent.toStringAsFixed(1)}%',
-                      style: const TextStyle(color: AppColors.successGreen, fontSize: 11, fontWeight: FontWeight.w700),
+                      style: const TextStyle(
+                        color: AppColors.successGreen,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ],
@@ -544,10 +778,21 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
               const SizedBox(height: 6),
               Row(
                 children: [
-                  const Text('₹', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: AppColors.successGreen)),
+                  const Text(
+                    '₹',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w900,
+                      color: AppColors.successGreen,
+                    ),
+                  ),
                   Text(
                     ' ${pl.netProfit.toStringAsFixed(0).replaceAllMapped(RegExp(r"(\d{1,3})(?=(\d{3})+(?!\d))"), (m) => "${m[1]},")}',
-                    style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w900, color: Colors.white),
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
@@ -556,7 +801,14 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
         ),
         const SizedBox(height: 16),
 
-        const Text('Financial Breakdown Statement', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white)),
+        const Text(
+          'Financial Breakdown Statement',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
+          ),
+        ),
         const SizedBox(height: 10),
 
         GlassContainer(
@@ -564,15 +816,38 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
           padding: const EdgeInsets.all(18),
           child: Column(
             children: [
-              _buildAccountingRow('Gross Revenue (Sales)', pl.totalRevenue, isPositive: true),
+              _buildAccountingRow(
+                'Gross Revenue (Sales)',
+                pl.totalRevenue,
+                isPositive: true,
+              ),
               const Divider(color: Colors.white12, height: 20),
-              _buildAccountingRow('Cost of Goods Sold (COGS)', pl.costOfGoodsSold, isNegative: true),
+              _buildAccountingRow(
+                'Cost of Goods Sold (COGS)',
+                pl.costOfGoodsSold,
+                isNegative: true,
+              ),
               const Divider(color: Colors.white12, height: 20),
-              _buildAccountingRow('Gross Profit', pl.grossProfit, isBold: true, subtitle: 'Gross Margin: ${pl.grossMarginPercent.toStringAsFixed(1)}%'),
+              _buildAccountingRow(
+                'Gross Profit',
+                pl.grossProfit,
+                isBold: true,
+                subtitle:
+                    'Gross Margin: ${pl.grossMarginPercent.toStringAsFixed(1)}%',
+              ),
               const Divider(color: Colors.white12, height: 20),
-              _buildAccountingRow('Operating & Logistics Expenses', pl.operatingExpenses, isNegative: true),
+              _buildAccountingRow(
+                'Operating & Logistics Expenses',
+                pl.operatingExpenses,
+                isNegative: true,
+              ),
               const Divider(color: Colors.white24, height: 24, thickness: 1.5),
-              _buildAccountingRow('Net Operating Profit', pl.netProfit, isBold: true, isNetProfit: true),
+              _buildAccountingRow(
+                'Net Operating Profit',
+                pl.netProfit,
+                isBold: true,
+                isNetProfit: true,
+              ),
             ],
           ),
         ),
@@ -589,13 +864,18 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
     bool isNetProfit = false,
     String? subtitle,
   }) {
-    final formatted = amount.toStringAsFixed(0).replaceAllMapped(RegExp(r"(\d{1,3})(?=(\d{3})+(?!\d))"), (m) => "${m[1]},");
+    final formatted = amount
+        .toStringAsFixed(0)
+        .replaceAllMapped(
+          RegExp(r"(\d{1,3})(?=(\d{3})+(?!\d))"),
+          (m) => "${m[1]},",
+        );
     final prefix = isNegative ? '- ₹ ' : '₹ ';
     final color = isNetProfit
         ? AppColors.successGreen
         : isNegative
-            ? AppColors.alertPink
-            : Colors.white;
+        ? AppColors.alertPink
+        : Colors.white;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -609,12 +889,17 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
                 style: TextStyle(
                   fontSize: isBold ? 14.5 : 13.5,
                   fontWeight: isBold ? FontWeight.w800 : FontWeight.w500,
-                  color: isNetProfit ? Colors.white : Colors.white.withOpacity(0.9),
+                  color: isNetProfit
+                      ? Colors.white
+                      : Colors.white.withOpacity(0.9),
                 ),
               ),
               if (subtitle != null) ...[
                 const SizedBox(height: 2),
-                Text(subtitle, style: const TextStyle(fontSize: 11, color: Colors.white54)),
+                Text(
+                  subtitle,
+                  style: const TextStyle(fontSize: 11, color: Colors.white54),
+                ),
               ],
             ],
           ),
@@ -632,7 +917,12 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
     );
   }
 
-  Widget _buildMetricTile(String label, String value, IconData icon, Color color) {
+  Widget _buildMetricTile(
+    String label,
+    String value,
+    IconData icon,
+    Color color,
+  ) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
@@ -645,9 +935,19 @@ class _KeyReportsScreenState extends ConsumerState<KeyReportsScreen> {
         children: [
           Icon(icon, size: 16, color: color),
           const SizedBox(height: 6),
-          Text(value, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: color)),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w800,
+              color: color,
+            ),
+          ),
           const SizedBox(height: 2),
-          Text(label, style: const TextStyle(fontSize: 11, color: Colors.white60)),
+          Text(
+            label,
+            style: const TextStyle(fontSize: 11, color: Colors.white60),
+          ),
         ],
       ),
     );

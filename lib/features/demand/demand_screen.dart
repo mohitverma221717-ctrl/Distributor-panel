@@ -1,7 +1,9 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../core/theme/app_theme.dart';
 import '../../data/models/distributor_models.dart';
 import '../../providers/distributor_provider.dart';
@@ -71,7 +73,10 @@ class DemandScreen extends ConsumerWidget {
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 child: Center(
                   child: Container(
                     constraints: const BoxConstraints(maxWidth: 480),
@@ -83,7 +88,8 @@ class DemandScreen extends ConsumerWidget {
                           rightAction: HeaderRightAction.profileAndNotification,
                           showSubtitle: true,
                           hasNotification: unreadAlertsCount > 0,
-                          onNotificationTap: () => context.push('/notifications'),
+                          onNotificationTap: () =>
+                              context.push('/notifications'),
                           onProfileTap: () => context.push('/profile'),
                         ),
                         const SizedBox(height: 14),
@@ -98,7 +104,8 @@ class DemandScreen extends ConsumerWidget {
                             children: [
                               // Panel Header Row: Chart Icon, Title, and Date Filter
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Row(
@@ -108,9 +115,13 @@ class DemandScreen extends ConsumerWidget {
                                           height: 32,
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: Colors.white.withOpacity(0.24),
+                                            color: Colors.white.withOpacity(
+                                              0.24,
+                                            ),
                                             border: Border.all(
-                                              color: Colors.white.withOpacity(0.55),
+                                              color: Colors.white.withOpacity(
+                                                0.55,
+                                              ),
                                               width: 1,
                                             ),
                                           ),
@@ -142,10 +153,17 @@ class DemandScreen extends ConsumerWidget {
 
                                   // Date Range Filter Pill Button
                                   InkWell(
-                                    onTap: () => _showDateRangePicker(context, demandState.timeRange, demandNotifier),
+                                    onTap: () => _showDateRangePicker(
+                                      context,
+                                      demandState.timeRange,
+                                      demandNotifier,
+                                    ),
                                     borderRadius: BorderRadius.circular(18),
                                     child: Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10,
+                                        vertical: 5,
+                                      ),
                                       decoration: BoxDecoration(
                                         color: Colors.white.withOpacity(0.22),
                                         borderRadius: BorderRadius.circular(18),
@@ -155,7 +173,9 @@ class DemandScreen extends ConsumerWidget {
                                         ),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.black.withOpacity(0.04),
+                                            color: Colors.black.withOpacity(
+                                              0.04,
+                                            ),
                                             blurRadius: 6,
                                           ),
                                         ],
@@ -202,19 +222,27 @@ class DemandScreen extends ConsumerWidget {
                                       unit: 'units',
                                       icon: Icons.view_in_ar_rounded,
                                       accentColor: const Color(0xFF0284C7),
-                                      bgColor: const Color(0xFFE0F2FE).withOpacity(0.82),
+                                      bgColor: const Color(0xFFE0F2FE)
+                                          .withOpacity(0.82),
                                       glowColor: const Color(0xFF38BDF8),
-                                      iconGradient: const [Color(0xFF38BDF8), Color(0xFF0284C7)],
+                                      iconGradient: const [
+                                        Color(0xFF38BDF8),
+                                        Color(0xFF0284C7),
+                                      ],
                                       onTap: () => _showMetricDetails(
                                         context,
                                         title: 'Demand Forecast',
-                                        metric: '${demandState.forecastUnits} units',
+                                        metric:
+                                            '${demandState.forecastUnits} units',
                                         color: const Color(0xFF0284C7),
-                                        description: 'AI & historical-based demand forecast for ${demandState.timeRange}. Anticipates peak order influx in Deoiganj and Civil Lines areas.',
+                                        description:
+                                            'AI & historical-based demand forecast for ${demandState.timeRange}. Anticipates peak order influx in Deoiganj and Civil Lines areas.',
                                         breakdown: const {
                                           'Forecast Confidence': '94.2%',
-                                          'Historical Variance': '+12% vs last period',
-                                          'Peak Demand Window': '08:00 AM - 12:30 PM',
+                                          'Historical Variance':
+                                              '+12% vs last period',
+                                          'Peak Demand Window':
+                                              '08:00 AM - 12:30 PM',
                                         },
                                       ),
                                     ),
@@ -229,18 +257,24 @@ class DemandScreen extends ConsumerWidget {
                                       unit: 'units',
                                       icon: Icons.shopping_cart_outlined,
                                       accentColor: const Color(0xFFEA580C),
-                                      bgColor: const Color(0xFFFFEDD5).withOpacity(0.82),
+                                      bgColor: const Color(0xFFFFEDD5)
+                                          .withOpacity(0.82),
                                       glowColor: const Color(0xFFFB923C),
-                                      iconGradient: const [Color(0xFFFB923C), Color(0xFFEA580C)],
+                                      iconGradient: const [
+                                        Color(0xFFFB923C),
+                                        Color(0xFFEA580C),
+                                      ],
                                       onTap: () => _showMetricDetails(
                                         context,
                                         title: 'Requested Demand',
-                                        metric: '${demandState.requestedUnits} units',
+                                        metric:
+                                            '${demandState.requestedUnits} units',
                                         color: const Color(0xFFEA580C),
                                         description: 'Total quantities actively requested by local retail shopkeepers awaiting order confirmation.',
                                         breakdown: const {
                                           'Pending Shop Orders': '18 orders',
-                                          'Active Store Requisitions': '6 stores',
+                                          'Active Store Requisitions':
+                                              '6 stores',
                                           'Avg Items per Shop': '60 units',
                                         },
                                       ),
@@ -256,13 +290,18 @@ class DemandScreen extends ConsumerWidget {
                                       unit: 'units',
                                       icon: Icons.check_rounded,
                                       accentColor: const Color(0xFF16A34A),
-                                      bgColor: const Color(0xFFDCFCE7).withOpacity(0.82),
+                                      bgColor: const Color(0xFFDCFCE7)
+                                          .withOpacity(0.82),
                                       glowColor: const Color(0xFF4ADE80),
-                                      iconGradient: const [Color(0xFF4ADE80), Color(0xFF16A34A)],
+                                      iconGradient: const [
+                                        Color(0xFF4ADE80),
+                                        Color(0xFF16A34A),
+                                      ],
                                       onTap: () => _showMetricDetails(
                                         context,
                                         title: 'Confirmed Demand',
-                                        metric: '${demandState.confirmedUnits} units',
+                                        metric:
+                                            '${demandState.confirmedUnits} units',
                                         color: const Color(0xFF16A34A),
                                         description: 'Requisitions validated with payment/credit terms and queued for fulfillment.',
                                         breakdown: const {
@@ -283,19 +322,25 @@ class DemandScreen extends ConsumerWidget {
                                       unit: 'units',
                                       icon: Icons.access_time_rounded,
                                       accentColor: const Color(0xFF9333EA),
-                                      bgColor: const Color(0xFFF3E8FF).withOpacity(0.82),
+                                      bgColor: const Color(0xFFF3E8FF)
+                                          .withOpacity(0.82),
                                       glowColor: const Color(0xFFC084FC),
-                                      iconGradient: const [Color(0xFFC084FC), Color(0xFF9333EA)],
+                                      iconGradient: const [
+                                        Color(0xFFC084FC),
+                                        Color(0xFF9333EA),
+                                      ],
                                       onTap: () => _showMetricDetails(
                                         context,
                                         title: 'Allocated Demand',
-                                        metric: '${demandState.allocatedUnits} units',
+                                        metric:
+                                            '${demandState.allocatedUnits} units',
                                         color: const Color(0xFF9333EA),
                                         description: 'Stock locked in staging bays and assigned to active delivery vehicles/dispatch routes.',
                                         breakdown: const {
                                           'Route A (Manoj Yadav)': '140 units',
                                           'Route B (Suresh Singh)': '100 units',
-                                          'Dispatch Ready Status': 'In Progress',
+                                          'Dispatch Ready Status':
+                                              'In Progress',
                                         },
                                       ),
                                     ),
@@ -317,7 +362,8 @@ class DemandScreen extends ConsumerWidget {
                             children: [
                               // Panel Header Row: Flame Icon, Title, and "View All >"
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Row(
@@ -328,11 +374,15 @@ class DemandScreen extends ConsumerWidget {
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             gradient: const LinearGradient(
-                                              colors: [Color(0xFFFFA23A), Color(0xFFFF6D00)],
+                                              colors: [
+                                                Color(0xFFFFA23A),
+                                                Color(0xFFFF6D00),
+                                              ],
                                             ),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: const Color(0xFFFF6D00).withOpacity(0.45),
+                                                color: const Color(0xFFFF6D00)
+                                                    .withOpacity(0.45),
                                                 blurRadius: 8,
                                                 offset: const Offset(0, 2),
                                               ),
@@ -340,7 +390,8 @@ class DemandScreen extends ConsumerWidget {
                                           ),
                                           child: const Center(
                                             child: Icon(
-                                              Icons.local_fire_department_rounded,
+                                              Icons
+                                                  .local_fire_department_rounded,
                                               color: Colors.white,
                                               size: 19,
                                             ),
@@ -364,10 +415,16 @@ class DemandScreen extends ConsumerWidget {
                                   ),
                                   const SizedBox(width: 8),
                                   InkWell(
-                                    onTap: () => _showAllProductsModal(context, demandState.topProducts),
+                                    onTap: () => _showAllProductsModal(
+                                      context,
+                                      demandState.topProducts,
+                                    ),
                                     borderRadius: BorderRadius.circular(8),
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 4,
+                                        vertical: 2,
+                                      ),
                                       child: Row(
                                         children: [
                                           Text(
@@ -375,14 +432,18 @@ class DemandScreen extends ConsumerWidget {
                                             style: TextStyle(
                                               fontSize: 12.5,
                                               fontWeight: FontWeight.w500,
-                                              color: Colors.white.withOpacity(0.85),
+                                              color: Colors.white.withOpacity(
+                                                0.85,
+                                              ),
                                             ),
                                           ),
                                           const SizedBox(width: 2),
                                           Icon(
                                             Icons.chevron_right_rounded,
                                             size: 16,
-                                            color: Colors.white.withOpacity(0.85),
+                                            color: Colors.white.withOpacity(
+                                              0.85,
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -394,9 +455,12 @@ class DemandScreen extends ConsumerWidget {
 
                               // Column Subheaders matching reference screenshot
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 12),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                ),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'Product',
@@ -423,7 +487,11 @@ class DemandScreen extends ConsumerWidget {
                               ...demandState.topProducts.take(4).map((prod) {
                                 return DemandProductRow(
                                   product: prod,
-                                  onTap: () => _showProductDemandDetail(context, prod, demandState),
+                                  onTap: () => _showProductDemandDetail(
+                                    context,
+                                    prod,
+                                    demandState,
+                                  ),
                                 );
                               }),
                             ],
@@ -444,7 +512,11 @@ class DemandScreen extends ConsumerWidget {
     );
   }
 
-  void _showDateRangePicker(BuildContext context, String currentRange, DemandNotifier notifier) {
+  void _showDateRangePicker(
+    BuildContext context,
+    String currentRange,
+    DemandNotifier notifier,
+  ) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -478,25 +550,38 @@ class DemandScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              ...['Today', 'Last 7 Days', 'Last 30 Days', 'This Month'].map((range) {
+              ...['Today', 'Last 7 Days', 'Last 30 Days', 'This Month'].map((
+                range,
+              ) {
                 final isSelected = currentRange == range;
                 return ListTile(
                   leading: Icon(
                     Icons.calendar_today_rounded,
-                    color: isSelected ? AppColors.primaryOrange : const Color(0xFF64748B),
+                    color: isSelected
+                        ? AppColors.primaryOrange
+                        : const Color(0xFF64748B),
                   ),
                   title: Text(
                     range,
                     style: TextStyle(
                       fontSize: 15,
-                      fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                      color: isSelected ? AppColors.primaryOrange : const Color(0xFF1E293B),
+                      fontWeight: isSelected
+                          ? FontWeight.w700
+                          : FontWeight.w500,
+                      color: isSelected
+                          ? AppColors.primaryOrange
+                          : const Color(0xFF1E293B),
                     ),
                   ),
                   trailing: isSelected
-                      ? const Icon(Icons.check_circle_rounded, color: AppColors.primaryOrange)
+                      ? const Icon(
+                          Icons.check_circle_rounded,
+                          color: AppColors.primaryOrange,
+                        )
                       : null,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   selected: isSelected,
                   selectedTileColor: AppColors.primaryOrange.withOpacity(0.08),
                   onTap: () {
@@ -559,7 +644,10 @@ class DemandScreen extends ConsumerWidget {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: color.withOpacity(0.12),
                       borderRadius: BorderRadius.circular(12),
@@ -620,7 +708,11 @@ class DemandScreen extends ConsumerWidget {
     );
   }
 
-  void _showProductDemandDetail(BuildContext context, DemandProduct product, DemandState demandState) {
+  void _showProductDemandDetail(
+    BuildContext context,
+    DemandProduct product,
+    DemandState demandState,
+  ) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -669,9 +761,15 @@ class DemandScreen extends ConsumerWidget {
                       child: product.imageAsset != null
                           ? Padding(
                               padding: const EdgeInsets.all(4.0),
-                              child: Image.asset(product.imageAsset!, fit: BoxFit.contain),
+                              child: Image.asset(
+                                product.imageAsset!,
+                                fit: BoxFit.contain,
+                              ),
                             )
-                          : const Icon(Icons.inventory_2_outlined, color: AppColors.primaryOrange),
+                          : const Icon(
+                              Icons.inventory_2_outlined,
+                              color: AppColors.primaryOrange,
+                            ),
                     ),
                   ),
                   const SizedBox(width: 14),
@@ -712,18 +810,44 @@ class DemandScreen extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Total Demand (${demandState.timeRange})', style: const TextStyle(fontWeight: FontWeight.w600)),
-                        Text('${product.totalDemand} units', style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16, color: AppColors.primaryOrange)),
+                        Text(
+                          'Total Demand (${demandState.timeRange})',
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          '${product.totalDemand} units',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w800,
+                            fontSize: 16,
+                            color: AppColors.primaryOrange,
+                          ),
+                        ),
                       ],
                     ),
                     const Divider(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        _buildStatChip('Forecast', '${(product.totalDemand * 1.05).round()}', const Color(0xFF0284C7)),
-                        _buildStatChip('Requested', '${product.totalDemand}', const Color(0xFFEA580C)),
-                        _buildStatChip('Confirmed', '${(product.totalDemand * 0.75).round()}', const Color(0xFF16A34A)),
-                        _buildStatChip('Allocated', '${(product.totalDemand * 0.65).round()}', const Color(0xFF9333EA)),
+                        _buildStatChip(
+                          'Forecast',
+                          '${(product.totalDemand * 1.05).round()}',
+                          const Color(0xFF0284C7),
+                        ),
+                        _buildStatChip(
+                          'Requested',
+                          '${product.totalDemand}',
+                          const Color(0xFFEA580C),
+                        ),
+                        _buildStatChip(
+                          'Confirmed',
+                          '${(product.totalDemand * 0.75).round()}',
+                          const Color(0xFF16A34A),
+                        ),
+                        _buildStatChip(
+                          'Allocated',
+                          '${(product.totalDemand * 0.65).round()}',
+                          const Color(0xFF9333EA),
+                        ),
                       ],
                     ),
                   ],
@@ -739,10 +863,26 @@ class DemandScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              _buildShopDemandItem('Sharma General Store', 'Deoiganj', '${(product.totalDemand * 0.38).round()} units'),
-              _buildShopDemandItem('Gupta Kirana Store', 'Main Bazar', '${(product.totalDemand * 0.28).round()} units'),
-              _buildShopDemandItem('Verma Provision Store', 'Kachhpura', '${(product.totalDemand * 0.20).round()} units'),
-              _buildShopDemandItem('Singh Traders', 'Nawabganj', '${(product.totalDemand * 0.14).round()} units'),
+              _buildShopDemandItem(
+                'Sharma General Store',
+                'Deoiganj',
+                '${(product.totalDemand * 0.38).round()} units',
+              ),
+              _buildShopDemandItem(
+                'Gupta Kirana Store',
+                'Main Bazar',
+                '${(product.totalDemand * 0.28).round()} units',
+              ),
+              _buildShopDemandItem(
+                'Verma Provision Store',
+                'Kachhpura',
+                '${(product.totalDemand * 0.20).round()} units',
+              ),
+              _buildShopDemandItem(
+                'Singh Traders',
+                'Nawabganj',
+                '${(product.totalDemand * 0.14).round()} units',
+              ),
               const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
@@ -752,11 +892,22 @@ class DemandScreen extends ConsumerWidget {
                     Navigator.pop(ctx);
                     context.push('/dispatch');
                   },
-                  icon: const Icon(Icons.local_shipping_outlined, color: Colors.white),
-                  label: const Text('Allocate & Plan Dispatch', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  icon: const Icon(
+                    Icons.local_shipping_outlined,
+                    color: Colors.white,
+                  ),
+                  label: const Text(
+                    'Allocate & Plan Dispatch',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryOrange,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
                   ),
                 ),
               ),
@@ -770,9 +921,23 @@ class DemandScreen extends ConsumerWidget {
   Widget _buildStatChip(String label, String value, Color color) {
     return Column(
       children: [
-        Text(value, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: color)),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w800,
+            color: color,
+          ),
+        ),
         const SizedBox(height: 2),
-        Text(label, style: TextStyle(fontSize: 11, color: color.withOpacity(0.85), fontWeight: FontWeight.w600)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            color: color.withOpacity(0.85),
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ],
     );
   }
@@ -785,20 +950,47 @@ class DemandScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.storefront_outlined, size: 16, color: Color(0xFF64748B)),
+              const Icon(
+                Icons.storefront_outlined,
+                size: 16,
+                color: Color(0xFF64748B),
+              ),
               const SizedBox(width: 8),
-              Text(shopName, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFF1E293B))),
+              Text(
+                shopName,
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF1E293B),
+                ),
+              ),
               const SizedBox(width: 4),
-              Text('($area)', style: const TextStyle(fontSize: 11.5, color: Color(0xFF94A3B8))),
+              Text(
+                '($area)',
+                style: const TextStyle(
+                  fontSize: 11.5,
+                  color: Color(0xFF94A3B8),
+                ),
+              ),
             ],
           ),
-          Text(demand, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: Color(0xFF0F172A))),
+          Text(
+            demand,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF0F172A),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  void _showAllProductsModal(BuildContext context, List<DemandProduct> products) {
+  void _showAllProductsModal(
+    BuildContext context,
+    List<DemandProduct> products,
+  ) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -806,7 +998,9 @@ class DemandScreen extends ConsumerWidget {
       builder: (ctx) => BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
         child: Container(
-          constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.75),
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.75,
+          ),
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.95),
             borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
@@ -845,7 +1039,11 @@ class DemandScreen extends ConsumerWidget {
                       product: prod,
                       onTap: () {
                         Navigator.pop(ctx);
-                        _showProductDemandDetail(context, prod, const DemandState(topProducts: []));
+                        _showProductDemandDetail(
+                          context,
+                          prod,
+                          const DemandState(topProducts: []),
+                        );
                       },
                     );
                   },

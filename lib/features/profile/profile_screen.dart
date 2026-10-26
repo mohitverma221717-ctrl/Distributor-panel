@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../core/theme/app_theme.dart';
 import '../../providers/distributor_provider.dart';
 import '../../shared/widgets/glass_panel.dart';
@@ -93,7 +94,10 @@ class ProfileScreen extends ConsumerWidget {
                                     color: Color(0xFF0F172A),
                                   ),
                                 ),
-                                const StatusBadge(text: 'Verified', type: BadgeType.active),
+                                const StatusBadge(
+                                  text: 'Verified',
+                                  type: BadgeType.active,
+                                ),
                               ],
                             ),
                             const SizedBox(height: 2),
@@ -124,7 +128,10 @@ class ProfileScreen extends ConsumerWidget {
                 // Management Quick Links Panel
                 GlassPanel(
                   borderRadius: 24,
-                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 12,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -142,7 +149,8 @@ class ProfileScreen extends ConsumerWidget {
                       _buildMenuTile(
                         icon: Icons.handshake_outlined,
                         title: 'Supplier Management',
-                        subtitle: 'FMCG partners, purchase orders & ledger balances',
+                        subtitle:
+                            'FMCG partners, purchase orders & ledger balances',
                         color: AppColors.primaryOrange,
                         onTap: () => context.push('/suppliers'),
                       ),
@@ -150,7 +158,8 @@ class ProfileScreen extends ConsumerWidget {
                       _buildMenuTile(
                         icon: Icons.two_wheeler_outlined,
                         title: 'Salesman Coordination (Feri Wala)',
-                        subtitle: 'Field visits, salesman routes & demand collection',
+                        subtitle:
+                            'Field visits, salesman routes & demand collection',
                         color: const Color(0xFF0284C7),
                         onTap: () => context.push('/salesman'),
                       ),
@@ -158,7 +167,8 @@ class ProfileScreen extends ConsumerWidget {
                       _buildMenuTile(
                         icon: Icons.insights_outlined,
                         title: 'Key Reports & Financials',
-                        subtitle: 'Stock valuation, sales revenue, P&L statements',
+                        subtitle:
+                            'Stock valuation, sales revenue, P&L statements',
                         color: const Color(0xFF16A34A),
                         onTap: () => context.push('/reports'),
                       ),
@@ -166,7 +176,8 @@ class ProfileScreen extends ConsumerWidget {
                       _buildMenuTile(
                         icon: Icons.inventory_2_outlined,
                         title: 'Warehouse Inventory Stock',
-                        subtitle: 'Track SKU levels, batch records & reorder alerts',
+                        subtitle:
+                            'Track SKU levels, batch records & reorder alerts',
                         color: const Color(0xFF9333EA),
                         onTap: () => context.push('/inventory'),
                       ),
@@ -202,7 +213,10 @@ class ProfileScreen extends ConsumerWidget {
                 // Settings & Support Panel
                 GlassPanel(
                   borderRadius: 24,
-                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 12,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -232,7 +246,11 @@ class ProfileScreen extends ConsumerWidget {
                         color: const Color(0xFF0284C7),
                         onTap: () {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Dialing ShopEasy Distributor Desk: 1800-419-7000')),
+                            const SnackBar(
+                              content: Text(
+                                'Dialing ShopEasy Distributor Desk: 1800-419-7000',
+                              ),
+                            ),
                           );
                         },
                       ),
@@ -289,12 +307,13 @@ class ProfileScreen extends ConsumerWidget {
       ),
       subtitle: Text(
         subtitle,
-        style: const TextStyle(
-          fontSize: 11.5,
-          color: Color(0xFF64748B),
-        ),
+        style: const TextStyle(fontSize: 11.5, color: Color(0xFF64748B)),
       ),
-      trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 13, color: Color(0xFF94A3B8)),
+      trailing: const Icon(
+        Icons.arrow_forward_ios_rounded,
+        size: 13,
+        color: Color(0xFF94A3B8),
+      ),
       onTap: onTap,
     );
   }

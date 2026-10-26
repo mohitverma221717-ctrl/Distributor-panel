@@ -1,8 +1,16 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
+
 import '../../core/theme/app_theme.dart';
 
-enum HeaderRightAction { none, slogan, profileAndNotification, menuAndNotification, moreMenu }
+enum HeaderRightAction {
+  none,
+  slogan,
+  profileAndNotification,
+  menuAndNotification,
+  moreMenu,
+}
 
 class ShopEasyHeader extends StatelessWidget {
   final HeaderRightAction rightAction;
@@ -184,10 +192,7 @@ class ShopEasyHeader extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.28),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.55),
-          width: 1.2,
-        ),
+        border: Border.all(color: Colors.white.withOpacity(0.55), width: 1.2),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.06),
@@ -224,10 +229,7 @@ class ShopEasyHeader extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.32),
           shape: BoxShape.circle,
-          border: Border.all(
-            color: Colors.white.withOpacity(0.55),
-            width: 1,
-          ),
+          border: Border.all(color: Colors.white.withOpacity(0.55), width: 1),
         ),
         child: Stack(
           alignment: Alignment.center,
@@ -265,15 +267,9 @@ class ShopEasyHeader extends StatelessWidget {
         height: 38,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(
-            color: Colors.white.withOpacity(0.75),
-            width: 1.5,
-          ),
+          border: Border.all(color: Colors.white.withOpacity(0.75), width: 1.5),
           boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 8,
-            ),
+            BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 8),
           ],
         ),
         child: ClipOval(
@@ -300,16 +296,9 @@ class ShopEasyHeader extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.32),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: Colors.white.withOpacity(0.55),
-            width: 1,
-          ),
+          border: Border.all(color: Colors.white.withOpacity(0.55), width: 1),
         ),
-        child: const Icon(
-          Icons.menu_rounded,
-          color: Colors.white,
-          size: 22,
-        ),
+        child: const Icon(Icons.menu_rounded, color: Colors.white, size: 22),
       ),
     );
   }
@@ -324,10 +313,7 @@ class ShopEasyHeader extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.32),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: Colors.white.withOpacity(0.55),
-            width: 1,
-          ),
+          border: Border.all(color: Colors.white.withOpacity(0.55), width: 1),
         ),
         child: const Icon(
           Icons.more_vert_rounded,

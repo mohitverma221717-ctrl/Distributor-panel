@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../app/theme/app_theme.dart';
 import '../../data/models/distributor_models.dart';
 import '../../providers/distributor_provider.dart';
@@ -10,10 +11,12 @@ class ProductCatalogueScreen extends ConsumerStatefulWidget {
   const ProductCatalogueScreen({super.key});
 
   @override
-  ConsumerState<ProductCatalogueScreen> createState() => _ProductCatalogueScreenState();
+  ConsumerState<ProductCatalogueScreen> createState() =>
+      _ProductCatalogueScreenState();
 }
 
-class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen> {
+class _ProductCatalogueScreenState
+    extends ConsumerState<ProductCatalogueScreen> {
   String _selectedCategory = 'All';
   String _searchQuery = '';
   final TextEditingController _searchController = TextEditingController();
@@ -64,26 +67,42 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                 const SizedBox(height: 16),
                 const Text(
                   'Sort By Price',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white70),
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white70,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    _buildFilterChip('Price: Low to High', _sortBy == 'price_asc', () {
-                      setSheetState(() => _sortBy = 'price_asc');
-                      setState(() => _sortBy = 'price_asc');
-                    }),
+                    _buildFilterChip(
+                      'Price: Low to High',
+                      _sortBy == 'price_asc',
+                      () {
+                        setSheetState(() => _sortBy = 'price_asc');
+                        setState(() => _sortBy = 'price_asc');
+                      },
+                    ),
                     const SizedBox(width: 8),
-                    _buildFilterChip('Price: High to Low', _sortBy == 'price_desc', () {
-                      setSheetState(() => _sortBy = 'price_desc');
-                      setState(() => _sortBy = 'price_desc');
-                    }),
+                    _buildFilterChip(
+                      'Price: High to Low',
+                      _sortBy == 'price_desc',
+                      () {
+                        setSheetState(() => _sortBy = 'price_desc');
+                        setState(() => _sortBy = 'price_desc');
+                      },
+                    ),
                   ],
                 ),
                 const SizedBox(height: 16),
                 const Text(
                   'Availability',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white70),
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white70,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Row(
@@ -115,10 +134,14 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primaryOrange : Colors.white.withOpacity(0.15),
+          color: isSelected
+              ? AppColors.primaryOrange
+              : Colors.white.withOpacity(0.15),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isSelected ? AppColors.primaryOrange : Colors.white.withOpacity(0.3),
+            color: isSelected
+                ? AppColors.primaryOrange
+                : Colors.white.withOpacity(0.3),
           ),
         ),
         child: Text(
@@ -165,12 +188,21 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.12),
                         borderRadius: BorderRadius.circular(18),
-                        border: Border.all(color: Colors.white.withOpacity(0.2)),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.2),
+                        ),
                       ),
                       padding: const EdgeInsets.all(8),
                       child: product.imageAsset != null
-                          ? Image.asset(product.imageAsset!, fit: BoxFit.contain)
-                          : const Icon(Icons.inventory_2_outlined, size: 40, color: Colors.white70),
+                          ? Image.asset(
+                              product.imageAsset!,
+                              fit: BoxFit.contain,
+                            )
+                          : const Icon(
+                              Icons.inventory_2_outlined,
+                              size: 40,
+                              color: Colors.white70,
+                            ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
@@ -187,23 +219,40 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                           ),
                           const SizedBox(height: 4),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
                               color: Colors.white.withOpacity(0.15),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
                               product.category,
-                              style: const TextStyle(fontSize: 11, color: Colors.white70),
+                              style: const TextStyle(
+                                fontSize: 11,
+                                color: Colors.white70,
+                              ),
                             ),
                           ),
                           const SizedBox(height: 8),
                           Row(
                             children: [
-                              const Text('₹', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: AppColors.primaryOrange)),
+                              const Text(
+                                '₹',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w800,
+                                  color: AppColors.primaryOrange,
+                                ),
+                              ),
                               Text(
                                 ' ${product.price.toStringAsFixed(0)}',
-                                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: Colors.white),
+                                style: const TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.white,
+                                ),
                               ),
                               const SizedBox(width: 12),
                               const GlassStatusBadge(status: 'In Stock'),
@@ -220,26 +269,49 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Available Hub Stock:', style: TextStyle(color: Colors.white70, fontSize: 13)),
-                    Text('${product.totalDemand} ${product.unit}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 14)),
+                    const Text(
+                      'Available Hub Stock:',
+                      style: TextStyle(color: Colors.white70, fontSize: 13),
+                    ),
+                    Text(
+                      '${product.totalDemand} ${product.unit}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Order Quantity:', style: TextStyle(color: Colors.white70, fontSize: 14, fontWeight: FontWeight.w600)),
+                    const Text(
+                      'Order Quantity:',
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                     Row(
                       children: [
                         IconButton.filledTonal(
                           icon: const Icon(Icons.remove, size: 18),
-                          onPressed: selectedQty > 1 ? () => setModalState(() => selectedQty--) : null,
+                          onPressed: selectedQty > 1
+                              ? () => setModalState(() => selectedQty--)
+                              : null,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 14),
                           child: Text(
                             '$selectedQty',
-                            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: Colors.white),
+                            style: const TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         IconButton.filledTonal(
@@ -254,10 +326,17 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Subtotal:', style: TextStyle(color: Colors.white70, fontSize: 14)),
+                    const Text(
+                      'Subtotal:',
+                      style: TextStyle(color: Colors.white70, fontSize: 14),
+                    ),
                     Text(
                       '₹ ${(product.price * selectedQty).toStringAsFixed(0)}',
-                      style: const TextStyle(color: AppColors.primaryOrange, fontWeight: FontWeight.w800, fontSize: 18),
+                      style: const TextStyle(
+                        color: AppColors.primaryOrange,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 18,
+                      ),
                     ),
                   ],
                 ),
@@ -267,16 +346,24 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                   icon: Icons.shopping_cart_outlined,
                   width: double.infinity,
                   onPressed: () {
-                    ref.read(cartProvider.notifier).addItem(product, qty: selectedQty);
+                    ref
+                        .read(cartProvider.notifier)
+                        .addItem(product, qty: selectedQty);
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         backgroundColor: const Color(0xFF1E293B),
                         content: Row(
                           children: [
-                            const Icon(Icons.check_circle_outline, color: AppColors.successGreen, size: 20),
+                            const Icon(
+                              Icons.check_circle_outline,
+                              color: AppColors.successGreen,
+                              size: 20,
+                            ),
                             const SizedBox(width: 10),
-                            Text('Added $selectedQty x ${product.name} to order'),
+                            Text(
+                              'Added $selectedQty x ${product.name} to order',
+                            ),
                           ],
                         ),
                         duration: const Duration(seconds: 2),
@@ -310,11 +397,19 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.shopping_bag_outlined, color: AppColors.primaryOrange, size: 24),
+                    const Icon(
+                      Icons.shopping_bag_outlined,
+                      color: AppColors.primaryOrange,
+                      size: 24,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       'Order Requisition ($totalCount)',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Colors.white),
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),
@@ -323,7 +418,10 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                     ref.read(cartProvider.notifier).clear();
                     Navigator.pop(context);
                   },
-                  child: const Text('Clear', style: TextStyle(color: AppColors.alertPink, fontSize: 13)),
+                  child: const Text(
+                    'Clear',
+                    style: TextStyle(color: AppColors.alertPink, fontSize: 13),
+                  ),
                 ),
               ],
             ),
@@ -332,7 +430,10 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 32),
                 child: Center(
-                  child: Text('Your order requisition is empty', style: TextStyle(color: Colors.white60)),
+                  child: Text(
+                    'Your order requisition is empty',
+                    style: TextStyle(color: Colors.white60),
+                  ),
                 ),
               )
             else ...[
@@ -341,7 +442,8 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                 child: ListView.separated(
                   shrinkWrap: true,
                   itemCount: cart.values.length,
-                  separatorBuilder: (_, __) => const Divider(color: Colors.white12, height: 16),
+                  separatorBuilder: (_, __) =>
+                      const Divider(color: Colors.white12, height: 16),
                   itemBuilder: (context, idx) {
                     final item = cart.values.elementAt(idx);
                     return Row(
@@ -350,25 +452,68 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(item.product.name, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 14)),
+                              Text(
+                                item.product.name,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                ),
+                              ),
                               const SizedBox(height: 2),
-                              Text('₹ ${item.product.price.toStringAsFixed(0)} each', style: const TextStyle(color: Colors.white54, fontSize: 12)),
+                              Text(
+                                '₹ ${item.product.price.toStringAsFixed(0)} each',
+                                style: const TextStyle(
+                                  color: Colors.white54,
+                                  fontSize: 12,
+                                ),
+                              ),
                             ],
                           ),
                         ),
                         Row(
                           children: [
                             IconButton(
-                              icon: const Icon(Icons.remove_circle_outline, color: Colors.white70, size: 20),
-                              onPressed: () => ref.read(cartProvider.notifier).updateQuantity(item.product.id, item.quantity - 1),
+                              icon: const Icon(
+                                Icons.remove_circle_outline,
+                                color: Colors.white70,
+                                size: 20,
+                              ),
+                              onPressed: () => ref
+                                  .read(cartProvider.notifier)
+                                  .updateQuantity(
+                                    item.product.id,
+                                    item.quantity - 1,
+                                  ),
                             ),
-                            Text('${item.quantity}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                            Text(
+                              '${item.quantity}',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                             IconButton(
-                              icon: const Icon(Icons.add_circle_outline, color: AppColors.primaryOrange, size: 20),
-                              onPressed: () => ref.read(cartProvider.notifier).updateQuantity(item.product.id, item.quantity + 1),
+                              icon: const Icon(
+                                Icons.add_circle_outline,
+                                color: AppColors.primaryOrange,
+                                size: 20,
+                              ),
+                              onPressed: () => ref
+                                  .read(cartProvider.notifier)
+                                  .updateQuantity(
+                                    item.product.id,
+                                    item.quantity + 1,
+                                  ),
                             ),
                             const SizedBox(width: 8),
-                            Text('₹ ${item.subtotal.toStringAsFixed(0)}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                            Text(
+                              '₹ ${item.subtotal.toStringAsFixed(0)}',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                           ],
                         ),
                       ],
@@ -382,8 +527,18 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Total Estimated Amount:', style: TextStyle(color: Colors.white70, fontSize: 14)),
-                  Text('₹ ${totalAmount.toStringAsFixed(0)}', style: const TextStyle(color: AppColors.primaryOrange, fontSize: 20, fontWeight: FontWeight.w900)),
+                  const Text(
+                    'Total Estimated Amount:',
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                  ),
+                  Text(
+                    '₹ ${totalAmount.toStringAsFixed(0)}',
+                    style: const TextStyle(
+                      color: AppColors.primaryOrange,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 20),
@@ -400,14 +555,28 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.check_circle, color: AppColors.successGreen, size: 56),
+                          const Icon(
+                            Icons.check_circle,
+                            color: AppColors.successGreen,
+                            size: 56,
+                          ),
                           const SizedBox(height: 16),
-                          const Text('Requisition Created!', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w800)),
+                          const Text(
+                            'Requisition Created!',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
                           const SizedBox(height: 8),
                           const Text(
                             'Your stock requisition has been submitted to the supplier dispatch desk.',
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white70, fontSize: 13),
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 13,
+                            ),
                           ),
                           const SizedBox(height: 20),
                           GlassButton(
@@ -437,12 +606,22 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
     // Filter by Category
     var filtered = allProducts;
     if (_selectedCategory != 'All') {
-      filtered = filtered.where((p) => p.category.toLowerCase().contains(_selectedCategory.toLowerCase())).toList();
+      filtered = filtered
+          .where(
+            (p) => p.category.toLowerCase().contains(
+              _selectedCategory.toLowerCase(),
+            ),
+          )
+          .toList();
     }
 
     // Filter by Search
     if (_searchQuery.isNotEmpty) {
-      filtered = filtered.where((p) => p.name.toLowerCase().contains(_searchQuery.toLowerCase())).toList();
+      filtered = filtered
+          .where(
+            (p) => p.name.toLowerCase().contains(_searchQuery.toLowerCase()),
+          )
+          .toList();
     }
 
     // Filter by In-Stock
@@ -473,9 +652,7 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
             ),
           ),
           Positioned.fill(
-            child: Container(
-              color: Colors.black.withOpacity(0.06),
-            ),
+            child: Container(color: Colors.black.withOpacity(0.06)),
           ),
 
           SafeArea(
@@ -487,7 +664,10 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
                   child: GlassContainer(
                     borderRadius: 24,
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 10,
+                    ),
                     child: Row(
                       children: [
                         // ShopEasy Logo Bag (Orange square with white 'S')
@@ -587,7 +767,10 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                       Expanded(
                         child: GlassContainer(
                           borderRadius: 22,
-                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 2),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 2,
+                          ),
                           child: TextField(
                             controller: _searchController,
                             onChanged: (q) => setState(() => _searchQuery = q),
@@ -610,7 +793,9 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                               ),
                               border: InputBorder.none,
                               isDense: true,
-                              contentPadding: const EdgeInsets.symmetric(vertical: 12),
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: 12,
+                              ),
                             ),
                           ),
                         ),
@@ -652,7 +837,10 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                           borderRadius: BorderRadius.circular(22),
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 200),
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
                             decoration: isSelected
                                 ? GlassTheme.activeChipDecoration
                                 : GlassTheme.inactiveChipDecoration,
@@ -663,7 +851,9 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                                   Icon(
                                     icon,
                                     size: 16,
-                                    color: isSelected ? Colors.white : Colors.white70,
+                                    color: isSelected
+                                        ? Colors.white
+                                        : Colors.white70,
                                   ),
                                   const SizedBox(width: 6),
                                 ],
@@ -671,8 +861,12 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                                   name,
                                   style: TextStyle(
                                     fontSize: 13,
-                                    fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                                    color: isSelected ? Colors.white : Colors.white.withOpacity(0.85),
+                                    fontWeight: isSelected
+                                        ? FontWeight.w700
+                                        : FontWeight.w500,
+                                    color: isSelected
+                                        ? Colors.white
+                                        : Colors.white.withOpacity(0.85),
                                   ),
                                 ),
                               ],
@@ -696,12 +890,17 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                       : ListView.separated(
                           padding: const EdgeInsets.fromLTRB(16, 4, 16, 90),
                           itemCount: filtered.length,
-                          separatorBuilder: (_, __) => const SizedBox(height: 12),
+                          separatorBuilder: (_, __) =>
+                              const SizedBox(height: 12),
                           itemBuilder: (context, index) {
                             final product = filtered[index];
                             final qtyInCart = cart[product.id]?.quantity ?? 0;
 
-                            return _buildProductCard(context, product, qtyInCart);
+                            return _buildProductCard(
+                              context,
+                              product,
+                              qtyInCart,
+                            );
                           },
                         ),
                 ),
@@ -720,21 +919,31 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                 borderRadius: BorderRadius.circular(24),
                 child: GlassContainer(
                   borderRadius: 24,
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
                   color: const Color(0xFF0F172A).withOpacity(0.82),
                   borderColor: AppColors.primaryOrangeLight.withOpacity(0.8),
                   borderWidth: 1.2,
                   child: Row(
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: AppColors.primaryOrange,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
                           '$totalCartCount',
-                          style: const TextStyle(fontWeight: FontWeight.w800, color: Colors.white, fontSize: 13),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
+                            fontSize: 13,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -743,17 +952,39 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Text('Order Requisition', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 13)),
-                            Text('Estimated: ₹ ${totalCartAmount.toStringAsFixed(0)}', style: const TextStyle(color: AppColors.primaryOrangeLight, fontSize: 11, fontWeight: FontWeight.w600)),
+                            const Text(
+                              'Order Requisition',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 13,
+                              ),
+                            ),
+                            Text(
+                              'Estimated: ₹ ${totalCartAmount.toStringAsFixed(0)}',
+                              style: const TextStyle(
+                                color: AppColors.primaryOrangeLight,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                           ],
                         ),
                       ),
                       const Text(
                         'View Details',
-                        style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       const SizedBox(width: 4),
-                      const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white, size: 12),
+                      const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Colors.white,
+                        size: 12,
+                      ),
                     ],
                   ),
                 ),
@@ -765,7 +996,11 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
   }
 
   // Exact replication of the Product Card from the reference screenshot
-  Widget _buildProductCard(BuildContext context, DemandProduct product, int qtyInCart) {
+  Widget _buildProductCard(
+    BuildContext context,
+    DemandProduct product,
+    int qtyInCart,
+  ) {
     return GlassContainer(
       borderRadius: 22,
       padding: const EdgeInsets.all(12),
@@ -849,7 +1084,9 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                     ),
                     const SizedBox(width: 3),
                     Text(
-                      product.price.toStringAsFixed(0).replaceAllMapped(
+                      product.price
+                          .toStringAsFixed(0)
+                          .replaceAllMapped(
                             RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
                             (Match m) => '${m[1]},',
                           ),
@@ -912,7 +1149,11 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                       backgroundColor: const Color(0xFF1E293B),
                       content: Row(
                         children: [
-                          const Icon(Icons.check_circle_outline, color: AppColors.successGreen, size: 20),
+                          const Icon(
+                            Icons.check_circle_outline,
+                            color: AppColors.successGreen,
+                            size: 20,
+                          ),
                           const SizedBox(width: 10),
                           Text('Added ${product.name} to order'),
                         ],
@@ -923,7 +1164,10 @@ class _ProductCatalogueScreenState extends ConsumerState<ProductCatalogueScreen>
                 },
                 borderRadius: BorderRadius.circular(20),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     gradient: AppColors.buttonGradient,
                     borderRadius: BorderRadius.circular(20),

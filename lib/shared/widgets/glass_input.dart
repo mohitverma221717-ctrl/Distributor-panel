@@ -91,7 +91,10 @@ class GlassInput extends StatelessWidget {
                   onTap: onCountryCodeTap,
                   borderRadius: BorderRadius.circular(8),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 8,
+                    ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -145,7 +148,9 @@ class GlassInput extends StatelessWidget {
                     border: InputBorder.none,
                     isDense: true,
                     contentPadding: EdgeInsets.symmetric(
-                      horizontal: (prefixIcon == null && !showCountryCode) ? 16 : 8,
+                      horizontal: (prefixIcon == null && !showCountryCode)
+                          ? 16
+                          : 8,
                       vertical: maxLines > 1 ? 12 : 14,
                     ),
                   ),

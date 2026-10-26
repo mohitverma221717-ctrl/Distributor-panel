@@ -24,10 +24,7 @@ class GlassAlertCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.42),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: Colors.white.withOpacity(0.68),
-            width: 1.1,
-          ),
+          border: Border.all(color: Colors.white.withOpacity(0.68), width: 1.1),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.03),
@@ -44,7 +41,9 @@ class GlassAlertCard extends StatelessWidget {
               width: 9,
               height: 9,
               decoration: BoxDecoration(
-                color: isUnread ? const Color(0xFF0284C7) : const Color(0xFF94A3B8),
+                color: isUnread
+                    ? const Color(0xFF0284C7)
+                    : const Color(0xFF94A3B8),
                 shape: BoxShape.circle,
                 boxShadow: isUnread
                     ? [

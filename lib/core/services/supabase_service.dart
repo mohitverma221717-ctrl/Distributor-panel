@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +20,8 @@ class SupabaseConfig {
     const url = String.fromEnvironment('SUPABASE_URL', defaultValue: '');
     const key = String.fromEnvironment('SUPABASE_ANON_KEY', defaultValue: '');
 
-    final configured = url.isNotEmpty && key.isNotEmpty && !url.contains('YOUR_SUPABASE');
+    final configured =
+        url.isNotEmpty && key.isNotEmpty && !url.contains('YOUR_SUPABASE');
 
     return SupabaseConfig(
       supabaseUrl: url,
@@ -55,7 +57,9 @@ class SupabaseService {
         ),
       );
       if (kDebugMode) {
-        debugPrint('[ShopEasy SupabaseService] Initialized with live URL: ${config.supabaseUrl}');
+        debugPrint(
+          '[ShopEasy SupabaseService] Initialized with live URL: ${config.supabaseUrl}',
+        );
       }
     } else {
       if (kDebugMode) {
@@ -83,10 +87,7 @@ class SupabaseService {
     try {
       final response = await _dio!.get(
         '/$table',
-        queryParameters: {
-          'select': ?select,
-          ...?filters,
-        },
+        queryParameters: {'select': ?select, ...?filters},
       );
 
       if (response.statusCode == 200 && response.data is List) {
@@ -96,7 +97,9 @@ class SupabaseService {
       }
     } catch (e) {
       if (kDebugMode) {
-        debugPrint('[ShopEasy Supabase] Remote query failed, falling back to local cache: $e');
+        debugPrint(
+          '[ShopEasy Supabase] Remote query failed, falling back to local cache: $e',
+        );
       }
     }
 
@@ -104,7 +107,10 @@ class SupabaseService {
   }
 
   /// Insert record with local cache persistence
-  Future<Map<String, dynamic>?> insertRecord(String table, Map<String, dynamic> data) async {
+  Future<Map<String, dynamic>?> insertRecord(
+    String table,
+    Map<String, dynamic> data,
+  ) async {
     if (_isOfflineDemoMode || _dio == null) {
       final list = await _loadFromLocalCache(table);
       list.insert(0, data);
@@ -114,12 +120,16 @@ class SupabaseService {
 
     try {
       final response = await _dio!.post('/$table', data: data);
-      if (response.statusCode == 201 && response.data is List && (response.data as List).isNotEmpty) {
+      if (response.statusCode == 201 &&
+          response.data is List &&
+          (response.data as List).isNotEmpty) {
         return (response.data as List).first as Map<String, dynamic>;
       }
     } catch (e) {
       if (kDebugMode) {
-        debugPrint('[ShopEasy Supabase] Remote insert failed, saving locally: $e');
+        debugPrint(
+          '[ShopEasy Supabase] Remote insert failed, saving locally: $e',
+        );
       }
       final list = await _loadFromLocalCache(table);
       list.insert(0, data);
@@ -140,7 +150,10 @@ class SupabaseService {
     return [];
   }
 
-  Future<void> _saveToLocalCache(String table, List<Map<String, dynamic>> data) async {
+  Future<void> _saveToLocalCache(
+    String table,
+    List<Map<String, dynamic>> data,
+  ) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('supabase_cache_$table', jsonEncode(data));

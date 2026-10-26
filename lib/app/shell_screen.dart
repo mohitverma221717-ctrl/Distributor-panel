@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import '../shared/widgets/bottom_nav_bar.dart';
 
 class MainShellScreen extends StatelessWidget {
@@ -21,10 +22,10 @@ class MainShellScreen extends StatelessWidget {
         context.go('/demand');
         break;
       case 2:
-        context.go('/products');
+        context.go('/orders');
         break;
       case 3:
-        context.go('/orders');
+        context.go('/inventory');
         break;
       case 4:
         context.go('/more');

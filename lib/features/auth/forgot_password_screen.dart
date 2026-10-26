@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../core/theme/app_theme.dart';
 import '../../providers/distributor_provider.dart';
 import '../../shared/widgets/glass_panel.dart';
@@ -13,7 +14,8 @@ class ForgotPasswordScreen extends ConsumerStatefulWidget {
   const ForgotPasswordScreen({super.key});
 
   @override
-  ConsumerState<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+  ConsumerState<ForgotPasswordScreen> createState() =>
+      _ForgotPasswordScreenState();
 }
 
 class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
@@ -52,12 +54,16 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     final mobile = _mobileController.text.trim();
     if (mobile.length != 10) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter a valid 10-digit mobile number')),
+        const SnackBar(
+          content: Text('Please enter a valid 10-digit mobile number'),
+        ),
       );
       return;
     }
 
-    final success = await ref.read(authProvider.notifier).sendPasswordResetOtp(mobile);
+    final success = await ref
+        .read(authProvider.notifier)
+        .sendPasswordResetOtp(mobile);
     if (success && mounted) {
       setState(() => _step = 2);
       _startTimer();
@@ -76,9 +82,8 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     final confirmPass = _confirmPasswordController.text;
 
     if (otp.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter OTP')),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please enter OTP')));
       return;
     }
 
@@ -90,17 +95,15 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     }
 
     if (newPass != confirmPass) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Passwords do not match')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Passwords do not match')));
       return;
     }
 
-    final success = await ref.read(authProvider.notifier).verifyOtpAndResetPassword(
-          _mobileController.text.trim(),
-          otp,
-          newPass,
-        );
+    final success = await ref
+        .read(authProvider.notifier)
+        .verifyOtpAndResetPassword(_mobileController.text.trim(), otp, newPass);
 
     if (success && mounted) {
       setState(() => _step = 3);
@@ -144,7 +147,10 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
           SafeArea(
             child: Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 16,
+                ),
                 child: Container(
                   constraints: const BoxConstraints(maxWidth: 440),
                   child: Column(
@@ -197,8 +203,8 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                         _step == 1
                             ? 'Enter registered mobile number to receive verification code'
                             : _step == 2
-                                ? 'Verify OTP and set a new secure password'
-                                : 'Password successfully updated!',
+                            ? 'Verify OTP and set a new secure password'
+                            : 'Password successfully updated!',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white.withOpacity(0.9),
@@ -256,7 +262,9 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: TextButton(
-                                  onPressed: _resendCountdown == 0 ? _handleSendOtp : null,
+                                  onPressed: _resendCountdown == 0
+                                      ? _handleSendOtp
+                                      : null,
                                   child: Text(
                                     _resendCountdown == 0
                                         ? 'Resend OTP'
@@ -291,7 +299,9 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                                     size: 20,
                                   ),
                                   onPressed: () {
-                                    setState(() => _obscureNewPass = !_obscureNewPass);
+                                    setState(
+                                      () => _obscureNewPass = !_obscureNewPass,
+                                    );
                                   },
                                 ),
                               ),

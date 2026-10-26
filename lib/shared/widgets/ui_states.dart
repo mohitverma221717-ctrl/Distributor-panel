@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+
 import '../../core/theme/app_theme.dart';
 import 'glass_panel.dart';
 
 class LoadingState extends StatelessWidget {
   final String message;
 
-  const LoadingState({
-    super.key,
-    this.message = 'Loading data...',
-  });
+  const LoadingState({super.key, this.message = 'Loading data...'});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +18,9 @@ class LoadingState extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(AppColors.primaryOrange),
+              valueColor: AlwaysStoppedAnimation<Color>(
+                AppColors.primaryOrange,
+              ),
             ),
             const SizedBox(height: 14),
             Text(
@@ -42,11 +42,7 @@ class ErrorState extends StatelessWidget {
   final String message;
   final VoidCallback? onRetry;
 
-  const ErrorState({
-    super.key,
-    required this.message,
-    this.onRetry,
-  });
+  const ErrorState({super.key, required this.message, this.onRetry});
 
   @override
   Widget build(BuildContext context) {
@@ -115,11 +111,7 @@ class EmptyState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              icon,
-              color: const Color(0xFF64748B),
-              size: 44,
-            ),
+            Icon(icon, color: const Color(0xFF64748B), size: 44),
             const SizedBox(height: 12),
             Text(
               title,
@@ -134,10 +126,7 @@ class EmptyState extends StatelessWidget {
             Text(
               subtitle,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 12.5,
-                color: Color(0xFF64748B),
-              ),
+              style: const TextStyle(fontSize: 12.5, color: Color(0xFF64748B)),
             ),
           ],
         ),

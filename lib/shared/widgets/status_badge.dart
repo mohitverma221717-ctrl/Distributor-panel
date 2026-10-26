@@ -52,10 +52,7 @@ class StatusBadge extends StatelessWidget {
       decoration: BoxDecoration(
         color: bg,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: fg.withOpacity(0.2),
-          width: 0.8,
-        ),
+        border: Border.all(color: fg.withOpacity(0.2), width: 0.8),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -63,10 +60,7 @@ class StatusBadge extends StatelessWidget {
           Container(
             width: 6,
             height: 6,
-            decoration: BoxDecoration(
-              color: dotColor,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
           ),
           const SizedBox(width: 5),
           Text(

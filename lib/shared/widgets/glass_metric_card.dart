@@ -36,10 +36,7 @@ class GlassMetricCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.42),
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: Colors.white.withOpacity(0.72),
-            width: 1.2,
-          ),
+          border: Border.all(color: Colors.white.withOpacity(0.72), width: 1.2),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.04),
@@ -72,7 +69,8 @@ class GlassMetricCard extends StatelessWidget {
                 ],
               ),
               child: Center(
-                child: customIcon ??
+                child:
+                    customIcon ??
                     Icon(
                       icon ?? Icons.analytics_outlined,
                       color: Colors.white,

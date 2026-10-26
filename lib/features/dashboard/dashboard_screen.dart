@@ -1,8 +1,10 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+
 import '../../core/theme/app_theme.dart';
 import '../../providers/distributor_provider.dart';
 import '../../shared/widgets/glass_alert_card.dart';
@@ -24,22 +26,33 @@ class DashboardScreen extends ConsumerWidget {
     final notifications = ref.watch(notificationsProvider);
 
     // Dynamic metrics
-    final totalStockUnits = inventory.fold(0, (sum, item) => sum + item.quantity);
-    final formattedStock = NumberFormat('#,###').format(totalStockUnits > 0 ? totalStockUnits : 8420);
+    final totalStockUnits = inventory.fold(
+      0,
+      (sum, item) => sum + item.quantity,
+    );
+    final formattedStock = NumberFormat('#,###')
+        .format(totalStockUnits > 0 ? totalStockUnits : 8420);
 
-    final pendingOrdersCount = orders.where((o) => o.status == 'Pending' || o.status == 'Processing').length;
-    final displayPendingOrders = pendingOrdersCount > 0 ? pendingOrdersCount.toString() : '18';
+    final pendingOrdersCount = orders
+        .where((o) => o.status == 'Pending' || o.status == 'Processing')
+        .length;
+    final displayPendingOrders = pendingOrdersCount > 0
+        ? pendingOrdersCount.toString()
+        : '18';
 
-    final pendingDispatchCount = dispatchRoutes.where((r) => r.status != 'Completed').length;
-    final displayPendingDispatch = pendingDispatchCount > 0 ? pendingDispatchCount.toString() : '5';
+    final pendingDispatchCount = dispatchRoutes
+        .where((r) => r.status != 'Completed')
+        .length;
+    final displayPendingDispatch = pendingDispatchCount > 0
+        ? pendingDispatchCount.toString()
+        : '5';
 
     final unreadAlertsCount = notifications.where((n) => !n.isRead).length;
 
     // Latest alert
-    final latestAlert = notifications.isNotEmpty
-        ? notifications.first
-        : null;
-    final alertTitle = latestAlert?.title ?? 'High demand for Rice (50kg) in 3 shops';
+    final latestAlert = notifications.isNotEmpty ? notifications.first : null;
+    final alertTitle =
+        latestAlert?.title ?? 'High demand for Rice (50kg) in 3 shops';
     final alertTime = latestAlert?.timeAgo ?? '2 hours ago';
 
     final userName = user?.name ?? 'Ramesh Kumar';
@@ -102,7 +115,10 @@ class DashboardScreen extends ConsumerWidget {
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 child: Center(
                   child: Container(
                     constraints: const BoxConstraints(maxWidth: 480),
@@ -113,7 +129,8 @@ class DashboardScreen extends ConsumerWidget {
                         ShopEasyHeader(
                           rightAction: HeaderRightAction.profileAndNotification,
                           hasNotification: unreadAlertsCount > 0,
-                          onNotificationTap: () => context.push('/notifications'),
+                          onNotificationTap: () =>
+                              context.push('/notifications'),
                           onProfileTap: () => context.push('/profile'),
                         ),
                         const SizedBox(height: 14),
@@ -127,11 +144,13 @@ class DashboardScreen extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'Welcome, $userName',
@@ -148,7 +167,9 @@ class DashboardScreen extends ConsumerWidget {
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w500,
-                                            color: Colors.white.withOpacity(0.85),
+                                            color: Colors.white.withOpacity(
+                                              0.85,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -159,20 +180,35 @@ class DashboardScreen extends ConsumerWidget {
                                     onTap: () => context.push('/salesman'),
                                     borderRadius: BorderRadius.circular(16),
                                     child: Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10,
+                                        vertical: 6,
+                                      ),
                                       decoration: BoxDecoration(
-                                        color: AppColors.primaryOrange.withOpacity(0.25),
+                                        color: AppColors.primaryOrange
+                                            .withOpacity(0.25),
                                         borderRadius: BorderRadius.circular(16),
-                                        border: Border.all(color: AppColors.primaryOrange.withOpacity(0.5)),
+                                        border: Border.all(
+                                          color: AppColors.primaryOrange
+                                              .withOpacity(0.5),
+                                        ),
                                       ),
                                       child: const Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          Icon(Icons.two_wheeler_outlined, size: 16, color: Colors.white),
+                                          Icon(
+                                            Icons.two_wheeler_outlined,
+                                            size: 16,
+                                            color: Colors.white,
+                                          ),
                                           SizedBox(width: 6),
                                           Text(
                                             'Salesman View',
-                                            style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: Colors.white),
+                                            style: TextStyle(
+                                              fontSize: 11.5,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -193,13 +229,21 @@ class DashboardScreen extends ConsumerWidget {
                                       unit: 'orders',
                                       color: const Color(0xFF0284C7),
                                       glowColor: const Color(0xFF38BDF8),
-                                      gradient: const [Color(0xFF38BDF8), Color(0xFF0284C7)],
+                                      gradient: const [
+                                        Color(0xFF38BDF8),
+                                        Color(0xFF0284C7),
+                                      ],
                                       customIcon: Container(
                                         width: 20,
                                         height: 20,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(5),
-                                          border: Border.all(color: Colors.white, width: 2),
+                                          borderRadius: BorderRadius.circular(
+                                            5,
+                                          ),
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 2,
+                                          ),
                                         ),
                                         child: Center(
                                           child: Container(
@@ -207,7 +251,8 @@ class DashboardScreen extends ConsumerWidget {
                                             height: 7,
                                             decoration: BoxDecoration(
                                               color: Colors.white,
-                                              borderRadius: BorderRadius.circular(1.5),
+                                              borderRadius:
+                                                  BorderRadius.circular(1.5),
                                             ),
                                           ),
                                         ),
@@ -224,7 +269,10 @@ class DashboardScreen extends ConsumerWidget {
                                       unit: 'orders',
                                       color: const Color(0xFFEA580C),
                                       glowColor: const Color(0xFFFB923C),
-                                      gradient: const [Color(0xFFFB923C), Color(0xFFEA580C)],
+                                      gradient: const [
+                                        Color(0xFFFB923C),
+                                        Color(0xFFEA580C),
+                                      ],
                                       icon: Icons.shopping_bag_rounded,
                                       onTap: () => context.go('/orders'),
                                     ),
@@ -242,7 +290,10 @@ class DashboardScreen extends ConsumerWidget {
                                       unit: 'units',
                                       color: const Color(0xFF16A34A),
                                       glowColor: const Color(0xFF4ADE80),
-                                      gradient: const [Color(0xFF4ADE80), Color(0xFF16A34A)],
+                                      gradient: const [
+                                        Color(0xFF4ADE80),
+                                        Color(0xFF16A34A),
+                                      ],
                                       icon: Icons.home_work_rounded,
                                       onTap: () => context.go('/inventory'),
                                     ),
@@ -256,7 +307,10 @@ class DashboardScreen extends ConsumerWidget {
                                       unit: 'orders',
                                       color: const Color(0xFF9333EA),
                                       glowColor: const Color(0xFFC084FC),
-                                      gradient: const [Color(0xFFC084FC), Color(0xFF9333EA)],
+                                      gradient: const [
+                                        Color(0xFFC084FC),
+                                        Color(0xFF9333EA),
+                                      ],
                                       icon: Icons.assignment_rounded,
                                       onTap: () => context.push('/dispatch'),
                                     ),
@@ -276,7 +330,8 @@ class DashboardScreen extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Row(
                                     children: [
@@ -300,7 +355,10 @@ class DashboardScreen extends ConsumerWidget {
                                     onTap: () => _showAllQuickActions(context),
                                     borderRadius: BorderRadius.circular(8),
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 4,
+                                        vertical: 2,
+                                      ),
                                       child: Row(
                                         children: [
                                           Text(
@@ -308,14 +366,18 @@ class DashboardScreen extends ConsumerWidget {
                                             style: TextStyle(
                                               fontSize: 12.5,
                                               fontWeight: FontWeight.w500,
-                                              color: Colors.white.withOpacity(0.85),
+                                              color: Colors.white.withOpacity(
+                                                0.85,
+                                              ),
                                             ),
                                           ),
                                           const SizedBox(width: 2),
                                           Icon(
                                             Icons.chevron_right_rounded,
                                             size: 16,
-                                            color: Colors.white.withOpacity(0.85),
+                                            color: Colors.white.withOpacity(
+                                              0.85,
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -332,7 +394,10 @@ class DashboardScreen extends ConsumerWidget {
                                     child: GlassQuickActionTile(
                                       icon: Icons.location_on_rounded,
                                       label: 'View\nDemand',
-                                      gradient: const [Color(0xFFFF9E40), Color(0xFFFF6D00)],
+                                      gradient: const [
+                                        Color(0xFFFF9E40),
+                                        Color(0xFFFF6D00),
+                                      ],
                                       glowColor: const Color(0xFFFF6D00),
                                       onTap: () => context.go('/demand'),
                                     ),
@@ -342,7 +407,10 @@ class DashboardScreen extends ConsumerWidget {
                                     child: GlassQuickActionTile(
                                       icon: Icons.inventory_2_rounded,
                                       label: 'Check\nInventory',
-                                      gradient: const [Color(0xFFC084FC), Color(0xFF9333EA)],
+                                      gradient: const [
+                                        Color(0xFFC084FC),
+                                        Color(0xFF9333EA),
+                                      ],
                                       glowColor: const Color(0xFF9333EA),
                                       onTap: () => context.go('/inventory'),
                                     ),
@@ -352,7 +420,10 @@ class DashboardScreen extends ConsumerWidget {
                                     child: GlassQuickActionTile(
                                       icon: Icons.storefront_rounded,
                                       label: 'Shop\nDirectory',
-                                      gradient: const [Color(0xFFFACC15), Color(0xFFEAB308)],
+                                      gradient: const [
+                                        Color(0xFFFACC15),
+                                        Color(0xFFEAB308),
+                                      ],
                                       glowColor: const Color(0xFFEAB308),
                                       onTap: () => context.push('/shops'),
                                     ),
@@ -362,7 +433,10 @@ class DashboardScreen extends ConsumerWidget {
                                     child: GlassQuickActionTile(
                                       icon: Icons.shopping_cart_rounded,
                                       label: 'New\nOrder',
-                                      gradient: const [Color(0xFF4ADE80), Color(0xFF16A34A)],
+                                      gradient: const [
+                                        Color(0xFF4ADE80),
+                                        Color(0xFF16A34A),
+                                      ],
                                       glowColor: const Color(0xFF16A34A),
                                       onTap: () => context.push('/products'),
                                     ),
@@ -382,7 +456,8 @@ class DashboardScreen extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
@@ -392,11 +467,15 @@ class DashboardScreen extends ConsumerWidget {
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           gradient: const LinearGradient(
-                                            colors: [Color(0xFFFB7185), Color(0xFFF43F5E)],
+                                            colors: [
+                                              Color(0xFFFB7185),
+                                              Color(0xFFF43F5E),
+                                            ],
                                           ),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: const Color(0xFFF43F5E).withOpacity(0.55),
+                                              color: const Color(0xFFF43F5E)
+                                                  .withOpacity(0.55),
                                               blurRadius: 8,
                                               offset: const Offset(0, 2),
                                             ),
@@ -425,7 +504,10 @@ class DashboardScreen extends ConsumerWidget {
                                     onTap: () => context.push('/notifications'),
                                     borderRadius: BorderRadius.circular(8),
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 4,
+                                        vertical: 2,
+                                      ),
                                       child: Row(
                                         children: [
                                           Text(
@@ -433,14 +515,18 @@ class DashboardScreen extends ConsumerWidget {
                                             style: TextStyle(
                                               fontSize: 12.5,
                                               fontWeight: FontWeight.w500,
-                                              color: Colors.white.withOpacity(0.85),
+                                              color: Colors.white.withOpacity(
+                                                0.85,
+                                              ),
                                             ),
                                           ),
                                           const SizedBox(width: 2),
                                           Icon(
                                             Icons.chevron_right_rounded,
                                             size: 16,
-                                            color: Colors.white.withOpacity(0.85),
+                                            color: Colors.white.withOpacity(
+                                              0.85,
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -517,10 +603,15 @@ class DashboardScreen extends ConsumerWidget {
                     color: const Color(0xFFFF6D00).withOpacity(0.12),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.location_on_rounded, color: Color(0xFFFF6D00)),
+                  child: const Icon(
+                    Icons.location_on_rounded,
+                    color: Color(0xFFFF6D00),
+                  ),
                 ),
                 title: const Text('View Demand & Forecast'),
-                subtitle: const Text('Analyze aggregated shop demand across areas'),
+                subtitle: const Text(
+                  'Analyze aggregated shop demand across areas',
+                ),
                 trailing: const Icon(Icons.chevron_right_rounded),
                 onTap: () {
                   Navigator.pop(ctx);
@@ -534,10 +625,15 @@ class DashboardScreen extends ConsumerWidget {
                     color: const Color(0xFF9333EA).withOpacity(0.12),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.inventory_2_rounded, color: Color(0xFF9333EA)),
+                  child: const Icon(
+                    Icons.inventory_2_rounded,
+                    color: Color(0xFF9333EA),
+                  ),
                 ),
                 title: const Text('Warehouse Inventory'),
-                subtitle: const Text('Check product stock levels and low-stock alerts'),
+                subtitle: const Text(
+                  'Check product stock levels and low-stock alerts',
+                ),
                 trailing: const Icon(Icons.chevron_right_rounded),
                 onTap: () {
                   Navigator.pop(ctx);
@@ -551,10 +647,15 @@ class DashboardScreen extends ConsumerWidget {
                     color: const Color(0xFFEAB308).withOpacity(0.12),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.storefront_rounded, color: Color(0xFFEAB308)),
+                  child: const Icon(
+                    Icons.storefront_rounded,
+                    color: Color(0xFFEAB308),
+                  ),
                 ),
                 title: const Text('Shop Directory'),
-                subtitle: const Text('View connected retailer network and order history'),
+                subtitle: const Text(
+                  'View connected retailer network and order history',
+                ),
                 trailing: const Icon(Icons.chevron_right_rounded),
                 onTap: () {
                   Navigator.pop(ctx);
@@ -568,10 +669,15 @@ class DashboardScreen extends ConsumerWidget {
                     color: const Color(0xFF16A34A).withOpacity(0.12),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.shopping_cart_rounded, color: Color(0xFF16A34A)),
+                  child: const Icon(
+                    Icons.shopping_cart_rounded,
+                    color: Color(0xFF16A34A),
+                  ),
                 ),
                 title: const Text('New Order & Catalogue'),
-                subtitle: const Text('Browse product catalogue and place direct orders'),
+                subtitle: const Text(
+                  'Browse product catalogue and place direct orders',
+                ),
                 trailing: const Icon(Icons.chevron_right_rounded),
                 onTap: () {
                   Navigator.pop(ctx);
@@ -585,10 +691,15 @@ class DashboardScreen extends ConsumerWidget {
                     color: const Color(0xFF0284C7).withOpacity(0.12),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.local_shipping_rounded, color: Color(0xFF0284C7)),
+                  child: const Icon(
+                    Icons.local_shipping_rounded,
+                    color: Color(0xFF0284C7),
+                  ),
                 ),
                 title: const Text('Dispatch Planning'),
-                subtitle: const Text('Review driver routes, stop sequence & loads'),
+                subtitle: const Text(
+                  'Review driver routes, stop sequence & loads',
+                ),
                 trailing: const Icon(Icons.chevron_right_rounded),
                 onTap: () {
                   Navigator.pop(ctx);
@@ -602,10 +713,15 @@ class DashboardScreen extends ConsumerWidget {
                     color: AppColors.primaryOrange.withOpacity(0.12),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.handshake_rounded, color: AppColors.primaryOrange),
+                  child: const Icon(
+                    Icons.handshake_rounded,
+                    color: AppColors.primaryOrange,
+                  ),
                 ),
                 title: const Text('Supplier Management'),
-                subtitle: const Text('Manage FMCG suppliers, purchase orders & balances'),
+                subtitle: const Text(
+                  'Manage FMCG suppliers, purchase orders & balances',
+                ),
                 trailing: const Icon(Icons.chevron_right_rounded),
                 onTap: () {
                   Navigator.pop(ctx);
@@ -619,10 +735,15 @@ class DashboardScreen extends ConsumerWidget {
                     color: const Color(0xFF0284C7).withOpacity(0.12),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.two_wheeler_rounded, color: Color(0xFF0284C7)),
+                  child: const Icon(
+                    Icons.two_wheeler_rounded,
+                    color: Color(0xFF0284C7),
+                  ),
                 ),
                 title: const Text('Salesman Coordination (Feri Wala)'),
-                subtitle: const Text('Track salesman routes, visits and shop demands'),
+                subtitle: const Text(
+                  'Track salesman routes, visits and shop demands',
+                ),
                 trailing: const Icon(Icons.chevron_right_rounded),
                 onTap: () {
                   Navigator.pop(ctx);
@@ -636,10 +757,15 @@ class DashboardScreen extends ConsumerWidget {
                     color: const Color(0xFF16A34A).withOpacity(0.12),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.insights_rounded, color: Color(0xFF16A34A)),
+                  child: const Icon(
+                    Icons.insights_rounded,
+                    color: Color(0xFF16A34A),
+                  ),
                 ),
                 title: const Text('Key Reports & Financials'),
-                subtitle: const Text('Stock, sales, purchase and profit & loss statements'),
+                subtitle: const Text(
+                  'Stock, sales, purchase and profit & loss statements',
+                ),
                 trailing: const Icon(Icons.chevron_right_rounded),
                 onTap: () {
                   Navigator.pop(ctx);

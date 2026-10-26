@@ -1,5 +1,7 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
+
 import '../../core/theme/app_theme.dart';
 
 class GlassPanel extends StatelessWidget {
@@ -36,7 +38,8 @@ class GlassPanel extends StatelessWidget {
       margin: margin,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadius),
-        boxShadow: boxShadow ??
+        boxShadow:
+            boxShadow ??
             [
               BoxShadow(
                 color: Colors.black.withOpacity(0.08),
@@ -60,11 +63,9 @@ class GlassPanel extends StatelessWidget {
             decoration: BoxDecoration(
               color: color ?? Colors.white.withOpacity(0.32),
               borderRadius: BorderRadius.circular(borderRadius),
-              border: border ??
-                  Border.all(
-                    color: Colors.white.withOpacity(0.55),
-                    width: 1.2,
-                  ),
+              border:
+                  border ??
+                  Border.all(color: Colors.white.withOpacity(0.55), width: 1.2),
             ),
             child: child,
           ),

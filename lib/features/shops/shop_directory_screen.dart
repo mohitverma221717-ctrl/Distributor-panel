@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../core/theme/app_theme.dart';
 import '../../data/models/distributor_models.dart';
 import '../../providers/distributor_provider.dart';
@@ -32,9 +33,7 @@ class ShopDirectoryScreen extends ConsumerWidget {
             ),
           ),
           Positioned.fill(
-            child: Container(
-              color: Colors.black.withOpacity(0.12),
-            ),
+            child: Container(color: Colors.black.withOpacity(0.12)),
           ),
 
           SafeArea(
@@ -125,8 +124,10 @@ class ShopDirectoryScreen extends ConsumerWidget {
                         context: context,
                         label: 'Top Demands',
                         icon: Icons.local_fire_department_rounded,
-                        isSelected: shopsNotifier.filter == ShopFilter.topDemands,
-                        onTap: () => shopsNotifier.setFilter(ShopFilter.topDemands),
+                        isSelected:
+                            shopsNotifier.filter == ShopFilter.topDemands,
+                        onTap: () =>
+                            shopsNotifier.setFilter(ShopFilter.topDemands),
                       ),
                     ],
                   ),
@@ -172,7 +173,9 @@ class ShopDirectoryScreen extends ConsumerWidget {
           gradient: isSelected ? AppColors.orangeGradient : null,
           color: isSelected ? null : Colors.white.withOpacity(0.38),
           border: Border.all(
-            color: isSelected ? Colors.transparent : Colors.white.withOpacity(0.65),
+            color: isSelected
+                ? Colors.transparent
+                : Colors.white.withOpacity(0.65),
             width: 1.1,
           ),
           boxShadow: isSelected
@@ -397,11 +400,17 @@ class ShopDirectoryScreen extends ConsumerWidget {
                   children: [
                     _buildModalRow('Address', shop.address),
                     const Divider(height: 14),
-                    _buildModalRow('Distance from Hub', '${shop.distanceKm} km'),
+                    _buildModalRow(
+                      'Distance from Hub',
+                      '${shop.distanceKm} km',
+                    ),
                     const Divider(height: 14),
                     _buildModalRow('High Demand Items', shop.topDemand),
                     const Divider(height: 14),
-                    _buildModalRow('Order Performance', '${shop.totalOrders} total delivered orders'),
+                    _buildModalRow(
+                      'Order Performance',
+                      '${shop.totalOrders} total delivered orders',
+                    ),
                   ],
                 ),
               ),
@@ -451,13 +460,21 @@ class ShopDirectoryScreen extends ConsumerWidget {
           width: 120,
           child: Text(
             label,
-            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF64748B),
+            ),
           ),
         ),
         Expanded(
           child: Text(
             value,
-            style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: Color(0xFF1E293B)),
+            style: const TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF1E293B),
+            ),
           ),
         ),
       ],
@@ -469,16 +486,27 @@ class ShopDirectoryScreen extends ConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.storefront_outlined, size: 48, color: Colors.white.withOpacity(0.7)),
+          Icon(
+            Icons.storefront_outlined,
+            size: 48,
+            color: Colors.white.withOpacity(0.7),
+          ),
           const SizedBox(height: 10),
           const Text(
             'No shops found',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
           const SizedBox(height: 4),
           Text(
             'Try adjusting your search query or filters',
-            style: TextStyle(fontSize: 13, color: Colors.white.withOpacity(0.8)),
+            style: TextStyle(
+              fontSize: 13,
+              color: Colors.white.withOpacity(0.8),
+            ),
           ),
         ],
       ),

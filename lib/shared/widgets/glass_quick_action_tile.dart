@@ -26,10 +26,7 @@ class GlassQuickActionTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.38),
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: Colors.white.withOpacity(0.68),
-            width: 1.1,
-          ),
+          border: Border.all(color: Colors.white.withOpacity(0.68), width: 1.1),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.04),

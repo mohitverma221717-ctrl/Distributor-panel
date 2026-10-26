@@ -1,5 +1,7 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
+
 import '../../app/theme/app_theme.dart';
 
 /// Reusable GlassContainer with backdrop filter, border, and smooth clipping
@@ -46,7 +48,8 @@ class GlassContainer extends StatelessWidget {
           color: borderColor ?? AppColors.glassBorder,
           width: borderWidth,
         ),
-        boxShadow: boxShadow ??
+        boxShadow:
+            boxShadow ??
             [
               BoxShadow(
                 color: Colors.black.withOpacity(0.08),
@@ -163,10 +166,7 @@ class GlassButton extends StatelessWidget {
                         Icon(icon, size: 18, color: Colors.white),
                         const SizedBox(width: 8),
                       ],
-                      Text(
-                        text,
-                        style: AppTypography.buttonText,
-                      ),
+                      Text(text, style: AppTypography.buttonText),
                     ],
                   ),
           ),
@@ -386,25 +386,23 @@ class GlassStatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveColor = color ??
+    final effectiveColor =
+        color ??
         (status.toLowerCase().contains('active') ||
                 status.toLowerCase().contains('in stock') ||
                 status.toLowerCase().contains('visited') ||
                 status.toLowerCase().contains('completed')
             ? AppColors.successGreen
             : status.toLowerCase().contains('pending')
-                ? AppColors.warningAmber
-                : AppColors.alertPink);
+            ? AppColors.warningAmber
+            : AppColors.alertPink);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: effectiveColor.withOpacity(0.18),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: effectiveColor.withOpacity(0.45),
-          width: 0.8,
-        ),
+        border: Border.all(color: effectiveColor.withOpacity(0.45), width: 0.8),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -480,8 +478,9 @@ class GlassTabBar extends StatelessWidget {
                     tabs[index],
                     style: TextStyle(
                       fontSize: 12.5,
-                      fontWeight:
-                          isSelected ? FontWeight.w700 : FontWeight.w500,
+                      fontWeight: isSelected
+                          ? FontWeight.w700
+                          : FontWeight.w500,
                       color: isSelected ? Colors.white : AppColors.textLightSub,
                     ),
                   ),
@@ -499,10 +498,7 @@ class GlassTabBar extends StatelessWidget {
 class GlassLoadingState extends StatelessWidget {
   final String message;
 
-  const GlassLoadingState({
-    super.key,
-    this.message = 'Loading...',
-  });
+  const GlassLoadingState({super.key, this.message = 'Loading...'});
 
   @override
   Widget build(BuildContext context) {
@@ -513,7 +509,9 @@ class GlassLoadingState extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(AppColors.primaryOrange),
+              valueColor: AlwaysStoppedAnimation<Color>(
+                AppColors.primaryOrange,
+              ),
             ),
             const SizedBox(height: 16),
             Text(
@@ -580,11 +578,7 @@ class GlassEmptyState extends StatelessWidget {
               ),
               if (actionText != null && onAction != null) ...[
                 const SizedBox(height: 20),
-                GlassButton(
-                  text: actionText!,
-                  onPressed: onAction,
-                  height: 40,
-                ),
+                GlassButton(text: actionText!, onPressed: onAction, height: 40),
               ],
             ],
           ),
@@ -642,11 +636,7 @@ class GlassErrorState extends StatelessWidget {
               ),
               if (onRetry != null) ...[
                 const SizedBox(height: 18),
-                GlassButton(
-                  text: 'Try Again',
-                  onPressed: onRetry,
-                  height: 38,
-                ),
+                GlassButton(text: 'Try Again', onPressed: onRetry, height: 38),
               ],
             ],
           ),

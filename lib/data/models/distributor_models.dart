@@ -54,29 +54,34 @@ class DistributorUser {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'businessName': businessName,
-        'mobileNumber': mobileNumber,
-        'gstNumber': gstNumber,
-        'businessType': businessType,
-        'address': address,
-        'email': email,
-        'avatarAsset': avatarAsset,
-        'status': status,
-        'token': token,
-      };
+    'id': id,
+    'name': name,
+    'businessName': businessName,
+    'mobileNumber': mobileNumber,
+    'gstNumber': gstNumber,
+    'businessType': businessType,
+    'address': address,
+    'email': email,
+    'avatarAsset': avatarAsset,
+    'status': status,
+    'token': token,
+  };
 
-  factory DistributorUser.fromJson(Map<String, dynamic> json) => DistributorUser(
+  factory DistributorUser.fromJson(Map<String, dynamic> json) =>
+      DistributorUser(
         id: json['id'] as String? ?? 'D-101',
         name: json['name'] as String? ?? 'Ramesh Kumar',
         businessName: json['businessName'] as String? ?? 'Ramesh Distributors',
         mobileNumber: json['mobileNumber'] as String? ?? '9876543210',
         gstNumber: json['gstNumber'] as String? ?? '22AABCD1234F1ZS',
-        businessType: json['businessType'] as String? ?? 'Wholesaler / Distributor',
-        address: json['address'] as String? ?? '123 Market Road, Civil Lines, Azamgarh, UP - 276001',
+        businessType:
+            json['businessType'] as String? ?? 'Wholesaler / Distributor',
+        address:
+            json['address'] as String? ??
+            '123 Market Road, Civil Lines, Azamgarh, UP - 276001',
         email: json['email'] as String? ?? 'ramesh.distributors@shopeasy.in',
-        avatarAsset: json['avatarAsset'] as String? ?? 'assets/images/user_avatar.png',
+        avatarAsset:
+            json['avatarAsset'] as String? ?? 'assets/images/user_avatar.png',
         status: json['status'] as String? ?? 'Approved',
         token: json['token'] as String?,
       );
@@ -160,6 +165,10 @@ class InventoryItem {
   final String unit;
   final int lowStockThreshold;
   final double pricePerUnit;
+  final String? imageAsset;
+  final String sku;
+  final String warehouseLocation;
+  final DateTime? lastRestocked;
 
   const InventoryItem({
     required this.id,
@@ -169,6 +178,10 @@ class InventoryItem {
     required this.unit,
     required this.lowStockThreshold,
     required this.pricePerUnit,
+    this.imageAsset,
+    this.sku = 'SKU-WH-01',
+    this.warehouseLocation = 'Section A - Rack 04',
+    this.lastRestocked,
   });
 
   bool get isLowStock => quantity <= lowStockThreshold;
@@ -181,6 +194,10 @@ class InventoryItem {
     String? unit,
     int? lowStockThreshold,
     double? pricePerUnit,
+    String? imageAsset,
+    String? sku,
+    String? warehouseLocation,
+    DateTime? lastRestocked,
   }) {
     return InventoryItem(
       id: id ?? this.id,
@@ -190,8 +207,36 @@ class InventoryItem {
       unit: unit ?? this.unit,
       lowStockThreshold: lowStockThreshold ?? this.lowStockThreshold,
       pricePerUnit: pricePerUnit ?? this.pricePerUnit,
+      imageAsset: imageAsset ?? this.imageAsset,
+      sku: sku ?? this.sku,
+      warehouseLocation: warehouseLocation ?? this.warehouseLocation,
+      lastRestocked: lastRestocked ?? this.lastRestocked,
     );
   }
+}
+
+class StockMovement {
+  final String id;
+  final String itemId;
+  final String productName;
+  final String type; // 'RECEIPT', 'ISSUE', 'ADJUSTMENT'
+  final int quantityChange;
+  final int balanceAfter;
+  final String reason;
+  final String performedBy;
+  final DateTime timestamp;
+
+  const StockMovement({
+    required this.id,
+    required this.itemId,
+    required this.productName,
+    required this.type,
+    required this.quantityChange,
+    required this.balanceAfter,
+    required this.reason,
+    required this.performedBy,
+    required this.timestamp,
+  });
 }
 
 class OrderItem {
@@ -212,42 +257,98 @@ class DistributorOrder {
   final String id;
   final String shopId;
   final String shopName;
+  final String location;
   final int itemCount;
   final double orderAmount;
-  final String status; // Pending, Processing, Delivered, Dispatched
+  final String status; // Pending, Processing, Delivered, Dispatched, Cancelled
   final DateTime date;
   final List<OrderItem> items;
+  final String customerPhone;
+  final String notes;
+  final List<String> statusHistory;
 
   const DistributorOrder({
     required this.id,
     required this.shopId,
     required this.shopName,
+    this.location = 'Azamgarh',
     required this.itemCount,
     required this.orderAmount,
     required this.status,
     required this.date,
     required this.items,
+    this.customerPhone = '+91 98765 43210',
+    this.notes = 'Regular wholesale replenishment',
+    this.statusHistory = const ['Order placed by retailer'],
   });
 
   DistributorOrder copyWith({
     String? id,
     String? shopId,
     String? shopName,
+    String? location,
     int? itemCount,
     double? orderAmount,
     String? status,
     DateTime? date,
     List<OrderItem>? items,
+    String? customerPhone,
+    String? notes,
+    List<String>? statusHistory,
   }) {
     return DistributorOrder(
       id: id ?? this.id,
       shopId: shopId ?? this.shopId,
       shopName: shopName ?? this.shopName,
+      location: location ?? this.location,
       itemCount: itemCount ?? this.itemCount,
       orderAmount: orderAmount ?? this.orderAmount,
       status: status ?? this.status,
       date: date ?? this.date,
       items: items ?? this.items,
+      customerPhone: customerPhone ?? this.customerPhone,
+      notes: notes ?? this.notes,
+      statusHistory: statusHistory ?? this.statusHistory,
+    );
+  }
+}
+
+class RouteStop {
+  final int sequence;
+  final String shopId;
+  final String shopName;
+  final String address;
+  final String orderId;
+  final double orderAmount;
+  final String status; // Pending, In Transit, Delivered, Skipped
+
+  const RouteStop({
+    required this.sequence,
+    required this.shopId,
+    required this.shopName,
+    required this.address,
+    required this.orderId,
+    required this.orderAmount,
+    this.status = 'Pending',
+  });
+
+  RouteStop copyWith({
+    int? sequence,
+    String? shopId,
+    String? shopName,
+    String? address,
+    String? orderId,
+    double? orderAmount,
+    String? status,
+  }) {
+    return RouteStop(
+      sequence: sequence ?? this.sequence,
+      shopId: shopId ?? this.shopId,
+      shopName: shopName ?? this.shopName,
+      address: address ?? this.address,
+      orderId: orderId ?? this.orderId,
+      orderAmount: orderAmount ?? this.orderAmount,
+      status: status ?? this.status,
     );
   }
 }
@@ -257,22 +358,33 @@ class DispatchRoute {
   final String routeName;
   final String assignedDriver;
   final String driverPhone;
+  final String vehicleNumber;
   final int stopCount;
   final double distanceKm;
   final String estDuration;
-  final String status; // Ready, In Transit, Completed
+  final String
+  status; // On Route, Ready, Pending, Not Started, Completed, Cancelled
+  final DateTime dispatchDate;
   final List<String> shopNames;
+  final List<RouteStop> stops;
+  final List<String> orderIds;
+  final List<String> statusHistory;
 
   const DispatchRoute({
     required this.id,
     required this.routeName,
     required this.assignedDriver,
     required this.driverPhone,
+    this.vehicleNumber = 'UP-50-AT-4412',
     required this.stopCount,
     required this.distanceKm,
     required this.estDuration,
     required this.status,
+    required this.dispatchDate,
     required this.shopNames,
+    this.stops = const [],
+    this.orderIds = const [],
+    this.statusHistory = const ['Route planned and scheduled'],
   });
 
   DispatchRoute copyWith({
@@ -280,22 +392,32 @@ class DispatchRoute {
     String? routeName,
     String? assignedDriver,
     String? driverPhone,
+    String? vehicleNumber,
     int? stopCount,
     double? distanceKm,
     String? estDuration,
     String? status,
+    DateTime? dispatchDate,
     List<String>? shopNames,
+    List<RouteStop>? stops,
+    List<String>? orderIds,
+    List<String>? statusHistory,
   }) {
     return DispatchRoute(
       id: id ?? this.id,
       routeName: routeName ?? this.routeName,
       assignedDriver: assignedDriver ?? this.assignedDriver,
       driverPhone: driverPhone ?? this.driverPhone,
+      vehicleNumber: vehicleNumber ?? this.vehicleNumber,
       stopCount: stopCount ?? this.stopCount,
       distanceKm: distanceKm ?? this.distanceKm,
       estDuration: estDuration ?? this.estDuration,
       status: status ?? this.status,
+      dispatchDate: dispatchDate ?? this.dispatchDate,
       shopNames: shopNames ?? this.shopNames,
+      stops: stops ?? this.stops,
+      orderIds: orderIds ?? this.orderIds,
+      statusHistory: statusHistory ?? this.statusHistory,
     );
   }
 }
@@ -319,9 +441,16 @@ class Shipment {
   final String awbNumber;
   final String orderId;
   final String shopName;
+  final String productName;
+  final int quantity;
   final String productSummary;
-  final String status;
+  final String status; // Delivered, In Transit, Out for Delivery, Scheduled
+  final String timestamp;
   final String lastUpdate;
+  final String driverName;
+  final String driverPhone;
+  final String vehicleNumber;
+  final String deliveryAddress;
   final List<TrackingStep> trackingSteps;
 
   const Shipment({
@@ -329,11 +458,54 @@ class Shipment {
     required this.awbNumber,
     required this.orderId,
     required this.shopName,
+    required this.productName,
+    required this.quantity,
     required this.productSummary,
     required this.status,
+    required this.timestamp,
     required this.lastUpdate,
+    this.driverName = 'Manoj Yadav',
+    this.driverPhone = '+91 94151 77889',
+    this.vehicleNumber = 'UP-50-AT-4412',
+    this.deliveryAddress = 'Azamgarh Central Area',
     required this.trackingSteps,
   });
+
+  Shipment copyWith({
+    String? id,
+    String? awbNumber,
+    String? orderId,
+    String? shopName,
+    String? productName,
+    int? quantity,
+    String? productSummary,
+    String? status,
+    String? timestamp,
+    String? lastUpdate,
+    String? driverName,
+    String? driverPhone,
+    String? vehicleNumber,
+    String? deliveryAddress,
+    List<TrackingStep>? trackingSteps,
+  }) {
+    return Shipment(
+      id: id ?? this.id,
+      awbNumber: awbNumber ?? this.awbNumber,
+      orderId: orderId ?? this.orderId,
+      shopName: shopName ?? this.shopName,
+      productName: productName ?? this.productName,
+      quantity: quantity ?? this.quantity,
+      productSummary: productSummary ?? this.productSummary,
+      status: status ?? this.status,
+      timestamp: timestamp ?? this.timestamp,
+      lastUpdate: lastUpdate ?? this.lastUpdate,
+      driverName: driverName ?? this.driverName,
+      driverPhone: driverPhone ?? this.driverPhone,
+      vehicleNumber: vehicleNumber ?? this.vehicleNumber,
+      deliveryAddress: deliveryAddress ?? this.deliveryAddress,
+      trackingSteps: trackingSteps ?? this.trackingSteps,
+    );
+  }
 }
 
 class AppAlertNotification {
@@ -424,30 +596,30 @@ class Supplier {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'totalPurchases': totalPurchases,
-        'status': status,
-        'category': category,
-        'contactPerson': contactPerson,
-        'phone': phone,
-        'email': email,
-        'address': address,
-        'lastPurchaseDate': lastPurchaseDate,
-      };
+    'id': id,
+    'name': name,
+    'totalPurchases': totalPurchases,
+    'status': status,
+    'category': category,
+    'contactPerson': contactPerson,
+    'phone': phone,
+    'email': email,
+    'address': address,
+    'lastPurchaseDate': lastPurchaseDate,
+  };
 
   factory Supplier.fromJson(Map<String, dynamic> json) => Supplier(
-        id: json['id'] as String,
-        name: json['name'] as String,
-        totalPurchases: (json['totalPurchases'] as num).toDouble(),
-        status: json['status'] as String? ?? 'Active',
-        category: json['category'] as String? ?? 'FMCG',
-        contactPerson: json['contactPerson'] as String? ?? '',
-        phone: json['phone'] as String? ?? '',
-        email: json['email'] as String? ?? '',
-        address: json['address'] as String? ?? '',
-        lastPurchaseDate: json['lastPurchaseDate'] as String? ?? 'Today',
-      );
+    id: json['id'] as String,
+    name: json['name'] as String,
+    totalPurchases: (json['totalPurchases'] as num).toDouble(),
+    status: json['status'] as String? ?? 'Active',
+    category: json['category'] as String? ?? 'FMCG',
+    contactPerson: json['contactPerson'] as String? ?? '',
+    phone: json['phone'] as String? ?? '',
+    email: json['email'] as String? ?? '',
+    address: json['address'] as String? ?? '',
+    lastPurchaseDate: json['lastPurchaseDate'] as String? ?? 'Today',
+  );
 }
 
 class SalesmanProfile {
@@ -535,7 +707,8 @@ class SalesmanVisit {
       status: status ?? this.status,
       scheduledTime: scheduledTime ?? this.scheduledTime,
       visitNotes: visitNotes ?? this.visitNotes,
-      collectedDemandAmount: collectedDemandAmount ?? this.collectedDemandAmount,
+      collectedDemandAmount:
+          collectedDemandAmount ?? this.collectedDemandAmount,
       visitedAt: visitedAt ?? this.visitedAt,
     );
   }
@@ -606,4 +779,3 @@ class ProfitLossSummary {
     required this.netMarginPercent,
   });
 }
-

@@ -1,5 +1,7 @@
 import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../models/distributor_models.dart';
 
 class DistributorRepository {
@@ -40,7 +42,8 @@ class DistributorRepository {
   }
 
   DistributorUser? get currentUser => _currentUser;
-  bool get isAuthenticated => _currentUser != null && _currentUser!.token != null;
+  bool get isAuthenticated =>
+      _currentUser != null && _currentUser!.token != null;
 
   Future<DistributorUser> login(String mobileNumber, String password) async {
     // Simulate network latency
@@ -92,7 +95,8 @@ class DistributorRepository {
   }) async {
     await Future.delayed(const Duration(milliseconds: 900));
 
-    final refId = 'SE-DIST-${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}';
+    final refId =
+        'SE-DIST-${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}';
 
     final newUser = DistributorUser(
       id: refId,
@@ -127,7 +131,11 @@ class DistributorRepository {
     return true;
   }
 
-  Future<bool> verifyOtpAndResetPassword(String mobile, String otp, String newPassword) async {
+  Future<bool> verifyOtpAndResetPassword(
+    String mobile,
+    String otp,
+    String newPassword,
+  ) async {
     await Future.delayed(const Duration(milliseconds: 700));
     if (otp != '1234' && otp != '123456') {
       throw Exception('Invalid OTP. Please enter 1234');
@@ -304,234 +312,1059 @@ class DistributorRepository {
 
   List<InventoryItem> getInventoryItems() {
     return [
+      // Primary Section 5.7 Reference Demonstration Products (Top 5 Table Rows)
       const InventoryItem(
         id: 'INV-01',
-        name: 'Rice (25kg Bag - Premium Kolam)',
+        name: 'Rice (25kg)',
         category: 'Grains',
-        quantity: 2450,
-        unit: 'bags',
-        lowStockThreshold: 500,
+        quantity: 420,
+        unit: 'units',
+        lowStockThreshold: 100,
         pricePerUnit: 1250.0,
+        imageAsset: 'assets/images/prod_rice.png',
+        sku: 'SKU-RC-25',
+        warehouseLocation: 'Bay A-01, Pallet 3',
       ),
       const InventoryItem(
         id: 'INV-02',
-        name: 'Cooking Oil (1L Fortune Refined)',
+        name: 'Cooking Oil (1L)',
         category: 'Oils',
-        quantity: 1820,
-        unit: 'bottles',
-        lowStockThreshold: 400,
-        pricePerUnit: 140.0,
+        quantity: 360,
+        unit: 'units',
+        lowStockThreshold: 100,
+        pricePerUnit: 160.0,
+        imageAsset: 'assets/images/prod_oil.png',
+        sku: 'SKU-OL-01',
+        warehouseLocation: 'Bay B-04, Rack 2',
       ),
       const InventoryItem(
         id: 'INV-03',
-        name: 'Wheat Flour (10kg Aashirvaad Atta)',
+        name: 'Wheat Flour (10kg)',
         category: 'Flour',
-        quantity: 1640,
-        unit: 'packs',
-        lowStockThreshold: 300,
-        pricePerUnit: 380.0,
+        quantity: 280,
+        unit: 'units',
+        lowStockThreshold: 100,
+        pricePerUnit: 280.0,
+        imageAsset: 'assets/images/prod_flour.png',
+        sku: 'SKU-WF-10',
+        warehouseLocation: 'Bay A-03, Pallet 1',
       ),
       const InventoryItem(
         id: 'INV-04',
-        name: 'Refined White Sugar (1kg Packet)',
+        name: 'Sugar (1kg)',
         category: 'Sweeteners',
-        quantity: 1280,
-        unit: 'packets',
-        lowStockThreshold: 250,
-        pricePerUnit: 44.0,
+        quantity: 240,
+        unit: 'units',
+        lowStockThreshold: 250, // Low stock: 240 <= 250
+        pricePerUnit: 45.0,
+        imageAsset: 'assets/images/prod_sugar.png',
+        sku: 'SKU-SG-01',
+        warehouseLocation: 'Bay C-02, Shelf 4',
       ),
       const InventoryItem(
         id: 'INV-05',
-        name: 'Toor Dal Premium (5kg Pack)',
-        category: 'Pulses',
-        quantity: 750,
-        unit: 'bags',
-        lowStockThreshold: 200,
-        pricePerUnit: 680.0,
+        name: 'Tea (1kg)',
+        category: 'Beverages',
+        quantity: 227,
+        unit: 'units',
+        lowStockThreshold: 100,
+        pricePerUnit: 320.0,
+        imageAsset: 'assets/images/prod_tea.png',
+        sku: 'SKU-TE-01',
+        warehouseLocation: 'Bay C-05, Shelf 1',
       ),
+
+      // Additional Low Stock Items (11 more, totaling 12 Low Stock Items)
       const InventoryItem(
         id: 'INV-06',
-        name: 'Tata Salt Vacuum Evaporated (1kg)',
+        name: 'Tata Salt (1kg)',
         category: 'Salt & Spices',
-        quantity: 360,
-        unit: 'packets',
-        lowStockThreshold: 400, // Low stock indicator
+        quantity: 95,
+        unit: 'units',
+        lowStockThreshold: 150,
         pricePerUnit: 28.0,
+        sku: 'SKU-ST-01',
+        warehouseLocation: 'Bay D-01',
       ),
       const InventoryItem(
         id: 'INV-07',
-        name: 'Red Chilli Powder (500g Everest)',
+        name: 'Red Chilli Powder (500g)',
         category: 'Salt & Spices',
-        quantity: 120,
-        unit: 'packs',
-        lowStockThreshold: 200, // Low stock indicator
+        quantity: 45,
+        unit: 'units',
+        lowStockThreshold: 100,
         pricePerUnit: 145.0,
+        sku: 'SKU-RC-05',
+        warehouseLocation: 'Bay D-02',
+      ),
+      const InventoryItem(
+        id: 'INV-08',
+        name: 'Turmeric Powder (500g)',
+        category: 'Salt & Spices',
+        quantity: 60,
+        unit: 'units',
+        lowStockThreshold: 100,
+        pricePerUnit: 110.0,
+        sku: 'SKU-TM-05',
+        warehouseLocation: 'Bay D-03',
+      ),
+      const InventoryItem(
+        id: 'INV-09',
+        name: 'Coriander Powder (500g)',
+        category: 'Salt & Spices',
+        quantity: 55,
+        unit: 'units',
+        lowStockThreshold: 100,
+        pricePerUnit: 95.0,
+        sku: 'SKU-CP-05',
+        warehouseLocation: 'Bay D-04',
+      ),
+      const InventoryItem(
+        id: 'INV-10',
+        name: 'Moong Dal (1kg)',
+        category: 'Pulses',
+        quantity: 80,
+        unit: 'units',
+        lowStockThreshold: 120,
+        pricePerUnit: 135.0,
+        sku: 'SKU-MD-01',
+        warehouseLocation: 'Bay E-01',
+      ),
+      const InventoryItem(
+        id: 'INV-11',
+        name: 'Chana Dal (1kg)',
+        category: 'Pulses',
+        quantity: 75,
+        unit: 'units',
+        lowStockThreshold: 120,
+        pricePerUnit: 98.0,
+        sku: 'SKU-CD-01',
+        warehouseLocation: 'Bay E-02',
+      ),
+      const InventoryItem(
+        id: 'INV-12',
+        name: 'Urad Dal (1kg)',
+        category: 'Pulses',
+        quantity: 65,
+        unit: 'units',
+        lowStockThreshold: 100,
+        pricePerUnit: 140.0,
+        sku: 'SKU-UD-01',
+        warehouseLocation: 'Bay E-03',
+      ),
+      const InventoryItem(
+        id: 'INV-13',
+        name: 'Mustard Oil (1L)',
+        category: 'Oils',
+        quantity: 90,
+        unit: 'units',
+        lowStockThreshold: 150,
+        pricePerUnit: 175.0,
+        sku: 'SKU-MO-01',
+        warehouseLocation: 'Bay B-02',
+      ),
+      const InventoryItem(
+        id: 'INV-14',
+        name: 'Bathing Soap (Pack of 4)',
+        category: 'Personal Care',
+        quantity: 110,
+        unit: 'units',
+        lowStockThreshold: 150,
+        pricePerUnit: 145.0,
+        sku: 'SKU-BS-04',
+        warehouseLocation: 'Bay F-01',
+      ),
+      const InventoryItem(
+        id: 'INV-15',
+        name: 'Dishwash Bar (Pack of 3)',
+        category: 'Household',
+        quantity: 85,
+        unit: 'units',
+        lowStockThreshold: 120,
+        pricePerUnit: 45.0,
+        sku: 'SKU-DW-03',
+        warehouseLocation: 'Bay F-02',
+      ),
+      const InventoryItem(
+        id: 'INV-16',
+        name: 'Biscuits Assorted (Box)',
+        category: 'Snacks',
+        quantity: 70,
+        unit: 'units',
+        lowStockThreshold: 100,
+        pricePerUnit: 250.0,
+        sku: 'SKU-BA-01',
+        warehouseLocation: 'Bay G-01',
+      ),
+
+      // Bulk In-Stock Inventory (Brings total units to EXACTLY 8,420)
+      const InventoryItem(
+        id: 'INV-17',
+        name: 'Premium Basmati Rice (10kg)',
+        category: 'Grains',
+        quantity: 1450,
+        unit: 'units',
+        lowStockThreshold: 200,
+        pricePerUnit: 950.0,
+        sku: 'SKU-BR-10',
+        warehouseLocation: 'Bay A-05',
+      ),
+      const InventoryItem(
+        id: 'INV-18',
+        name: 'Sunflower Refined Oil (5L Can)',
+        category: 'Oils',
+        quantity: 1120,
+        unit: 'units',
+        lowStockThreshold: 200,
+        pricePerUnit: 720.0,
+        sku: 'SKU-SO-05',
+        warehouseLocation: 'Bay B-01',
+      ),
+      const InventoryItem(
+        id: 'INV-19',
+        name: 'Whole Wheat Atta (5kg)',
+        category: 'Flour',
+        quantity: 1250,
+        unit: 'units',
+        lowStockThreshold: 250,
+        pricePerUnit: 210.0,
+        sku: 'SKU-WA-05',
+        warehouseLocation: 'Bay A-04',
+      ),
+      const InventoryItem(
+        id: 'INV-20',
+        name: 'Toor Dal Premium (5kg)',
+        category: 'Pulses',
+        quantity: 850,
+        unit: 'units',
+        lowStockThreshold: 200,
+        pricePerUnit: 680.0,
+        sku: 'SKU-TD-05',
+        warehouseLocation: 'Bay E-04',
+      ),
+      const InventoryItem(
+        id: 'INV-21',
+        name: 'Washing Powder (1kg Pack)',
+        category: 'Household',
+        quantity: 720,
+        unit: 'units',
+        lowStockThreshold: 150,
+        pricePerUnit: 130.0,
+        sku: 'SKU-WP-01',
+        warehouseLocation: 'Bay F-03',
+      ),
+      const InventoryItem(
+        id: 'INV-22',
+        name: 'Iodized Table Salt (1kg)',
+        category: 'Salt & Spices',
+        quantity: 673,
+        unit: 'units',
+        lowStockThreshold: 200,
+        pricePerUnit: 25.0,
+        sku: 'SKU-TS-01',
+        warehouseLocation: 'Bay D-05',
       ),
     ];
   }
+
+  final List<DistributorOrder> _orders = [
+    // 1. Primary Reference Order 1 (Pending)
+    DistributorOrder(
+      id: 'ORD-9201',
+      shopId: 'SH-01',
+      shopName: 'Sharma Gen. Store',
+      location: 'Deoganj',
+      itemCount: 2,
+      orderAmount: 2460.0,
+      status: 'Pending',
+      date: DateTime.now().subtract(const Duration(minutes: 35)),
+      customerPhone: '+91 98765 12340',
+      notes: 'Urgent weekend morning delivery requested',
+      statusHistory: const [
+        'Order submitted by Sharma Gen. Store via App',
+        'Demand aggregated into Route A batch',
+      ],
+      items: const [
+        OrderItem(productName: 'Rice (25kg)', quantity: 1, price: 1250),
+        OrderItem(productName: 'Refined Oil (1L)', quantity: 1, price: 1210),
+      ],
+    ),
+
+    // 2. Primary Reference Order 2 (Processing)
+    DistributorOrder(
+      id: 'ORD-9202',
+      shopId: 'SH-02',
+      shopName: 'Gupta Kirana Store',
+      location: 'Main Bazar',
+      itemCount: 4,
+      orderAmount: 4120.0,
+      status: 'Processing',
+      date: DateTime.now().subtract(const Duration(hours: 1, minutes: 15)),
+      customerPhone: '+91 91234 56780',
+      notes: 'Payment confirmed via UPI; packing in Bay B',
+      statusHistory: const [
+        'Order placed by Sanjay Gupta',
+        'Payment verified ₹4,120',
+        'Allocated to Bay B picking list',
+      ],
+      items: const [
+        OrderItem(productName: 'Wheat Flour (10kg)', quantity: 5, price: 380),
+        OrderItem(productName: 'Sugar (1kg)', quantity: 20, price: 45),
+        OrderItem(productName: 'Cooking Oil (1L)', quantity: 5, price: 160),
+        OrderItem(productName: 'Tea (1kg)', quantity: 1, price: 520),
+      ],
+    ),
+
+    // 3. Primary Reference Order 3 (Processing)
+    DistributorOrder(
+      id: 'ORD-9195',
+      shopId: 'SH-03',
+      shopName: 'Verma Provision Store',
+      location: 'Kachhpura',
+      itemCount: 3,
+      orderAmount: 2780.0,
+      status: 'Processing',
+      date: DateTime.now().subtract(const Duration(hours: 3)),
+      customerPhone: '+91 91290 98765',
+      notes: 'Goods packaged, staging at dispatch bay 1',
+      statusHistory: const [
+        'Order created by Sunil Verma',
+        'Assigned to Vehicle UP-50-AT-4412',
+      ],
+      items: const [
+        OrderItem(productName: 'Toor Dal (5kg)', quantity: 2, price: 680),
+        OrderItem(productName: 'Cooking Oil (1L)', quantity: 6, price: 160),
+        OrderItem(productName: 'Sugar (1kg)', quantity: 10, price: 46),
+      ],
+    ),
+
+    // 4. Primary Reference Order 4 (Delivered)
+    DistributorOrder(
+      id: 'ORD-9188',
+      shopId: 'SH-04',
+      shopName: 'Singh Traders',
+      location: 'Nawabganj',
+      itemCount: 5,
+      orderAmount: 6000.0,
+      status: 'Delivered',
+      date: DateTime.now().subtract(const Duration(hours: 7)),
+      customerPhone: '+91 94500 67890',
+      notes: 'Received by Raghav Singh. Signature recorded on delivery.',
+      statusHistory: const [
+        'Order placed yesterday 6:00 PM',
+        'Dispatched on Route B',
+        'Delivered & OTP confirmed by Raghav Singh',
+      ],
+      items: const [
+        OrderItem(productName: 'Rice (25kg)', quantity: 4, price: 1250),
+        OrderItem(productName: 'Cooking Oil (1L)', quantity: 5, price: 160),
+        OrderItem(productName: 'Tata Salt (1kg)', quantity: 4, price: 25),
+        OrderItem(productName: 'Moong Dal (1kg)', quantity: 1, price: 100),
+      ],
+    ),
+
+    // Additional Pending Orders (to total 4 Pending)
+    DistributorOrder(
+      id: 'ORD-9203',
+      shopId: 'SH-05',
+      shopName: 'Anand Super Market',
+      location: 'Civil Lines',
+      itemCount: 3,
+      orderAmount: 3450.0,
+      status: 'Pending',
+      date: DateTime.now().subtract(const Duration(minutes: 50)),
+      items: const [
+        OrderItem(productName: 'Atta (5kg)', quantity: 10, price: 210),
+        OrderItem(productName: 'Ghee (1L)', quantity: 2, price: 675),
+      ],
+    ),
+    DistributorOrder(
+      id: 'ORD-9204',
+      shopId: 'SH-06',
+      shopName: 'Bharat Daily Mart',
+      location: 'Ailwal',
+      itemCount: 6,
+      orderAmount: 5120.0,
+      status: 'Pending',
+      date: DateTime.now().subtract(const Duration(hours: 2)),
+      items: const [
+        OrderItem(productName: 'Soyabean Oil (1L)', quantity: 20, price: 140),
+        OrderItem(productName: 'Basmati Rice (5kg)', quantity: 4, price: 580),
+      ],
+    ),
+    DistributorOrder(
+      id: 'ORD-9205',
+      shopId: 'SH-07',
+      shopName: 'Kisan Seva Kendra',
+      location: 'Chowk',
+      itemCount: 2,
+      orderAmount: 1850.0,
+      status: 'Pending',
+      date: DateTime.now().subtract(const Duration(hours: 2, minutes: 30)),
+      items: const [
+        OrderItem(productName: 'Sugar (1kg)', quantity: 30, price: 45),
+        OrderItem(productName: 'Salt (1kg)', quantity: 20, price: 25),
+      ],
+    ),
+
+    // Additional Processing Orders (to total 4 Processing)
+    DistributorOrder(
+      id: 'ORD-9196',
+      shopId: 'SH-08',
+      shopName: 'Patel Kirana Bhandar',
+      location: 'Rani Ki Sarai',
+      itemCount: 4,
+      orderAmount: 4900.0,
+      status: 'Processing',
+      date: DateTime.now().subtract(const Duration(hours: 4)),
+      items: const [
+        OrderItem(productName: 'Mustard Oil (1L)', quantity: 15, price: 175),
+        OrderItem(productName: 'Toor Dal (1kg)', quantity: 15, price: 150),
+      ],
+    ),
+    DistributorOrder(
+      id: 'ORD-9197',
+      shopId: 'SH-09',
+      shopName: 'Laxmi Grocery Store',
+      location: 'Mubarakpur',
+      itemCount: 5,
+      orderAmount: 3820.0,
+      status: 'Processing',
+      date: DateTime.now().subtract(const Duration(hours: 5)),
+      items: const [
+        OrderItem(productName: 'Wheat Flour (10kg)', quantity: 10, price: 280),
+        OrderItem(productName: 'Spices Packets', quantity: 20, price: 51),
+      ],
+    ),
+
+    // Additional Delivered Order (to total 2 Delivered)
+    DistributorOrder(
+      id: 'ORD-9189',
+      shopId: 'SH-10',
+      shopName: 'Mohan General Store',
+      location: 'Bilariaganj',
+      itemCount: 3,
+      orderAmount: 7200.0,
+      status: 'Delivered',
+      date: DateTime.now().subtract(const Duration(days: 1)),
+      items: const [
+        OrderItem(productName: 'Rice (25kg)', quantity: 5, price: 1250),
+        OrderItem(productName: 'Sugar (1kg)', quantity: 20, price: 45),
+      ],
+    ),
+
+    // 2 Dispatched / In Transit Orders (bringing Total Orders to EXACTLY 12)
+    DistributorOrder(
+      id: 'ORD-9198',
+      shopId: 'SH-11',
+      shopName: 'Agrawal Brothers',
+      location: 'Kotwali Bazar',
+      itemCount: 4,
+      orderAmount: 5600.0,
+      status: 'Dispatched',
+      date: DateTime.now().subtract(const Duration(hours: 3, minutes: 40)),
+      items: const [
+        OrderItem(productName: 'Rice (25kg)', quantity: 3, price: 1250),
+        OrderItem(productName: 'Sunflower Oil (5L)', quantity: 2, price: 720),
+      ],
+    ),
+    DistributorOrder(
+      id: 'ORD-9199',
+      shopId: 'SH-12',
+      shopName: 'Jaiswal Traders',
+      location: 'Harraiya',
+      itemCount: 3,
+      orderAmount: 3100.0,
+      status: 'Dispatched',
+      date: DateTime.now().subtract(const Duration(hours: 6)),
+      items: const [
+        OrderItem(productName: 'Atta (10kg)', quantity: 10, price: 280),
+        OrderItem(productName: 'Washing Powder', quantity: 3, price: 100),
+      ],
+    ),
+  ];
 
   List<DistributorOrder> getOrders() {
-    return [
-      DistributorOrder(
-        id: 'ORD-9201',
-        shopId: 'SH-01',
-        shopName: 'Sharma General Store',
-        itemCount: 4,
-        orderAmount: 8450.0,
-        status: 'Pending',
-        date: DateTime.now().subtract(const Duration(minutes: 45)),
-        items: const [
-          OrderItem(productName: 'Rice (25kg)', quantity: 5, price: 1250),
-          OrderItem(productName: 'Cooking Oil (1L)', quantity: 15, price: 140),
-        ],
-      ),
-      DistributorOrder(
-        id: 'ORD-9202',
-        shopId: 'SH-02',
-        shopName: 'Gupta Kirana Store',
-        itemCount: 6,
-        orderAmount: 14200.0,
-        status: 'Pending',
-        date: DateTime.now().subtract(const Duration(hours: 2)),
-        items: const [
-          OrderItem(productName: 'Wheat Flour (10kg)', quantity: 20, price: 380),
-          OrderItem(productName: 'Sugar (1kg)', quantity: 150, price: 44),
-        ],
-      ),
-      DistributorOrder(
-        id: 'ORD-9195',
-        shopId: 'SH-03',
-        shopName: 'Verma Provision Store',
-        itemCount: 3,
-        orderAmount: 6800.0,
-        status: 'Processing',
-        date: DateTime.now().subtract(const Duration(hours: 4)),
-        items: const [
-          OrderItem(productName: 'Toor Dal (5kg)', quantity: 10, price: 680),
-        ],
-      ),
-      DistributorOrder(
-        id: 'ORD-9188',
-        shopId: 'SH-04',
-        shopName: 'Singh Traders',
-        itemCount: 8,
-        orderAmount: 22650.0,
-        status: 'Delivered',
-        date: DateTime.now().subtract(const Duration(days: 1)),
-        items: const [
-          OrderItem(productName: 'Rice (25kg)', quantity: 12, price: 1250),
-          OrderItem(productName: 'Cooking Oil (1L)', quantity: 40, price: 140),
-          OrderItem(productName: 'Sugar (1kg)', quantity: 50, price: 44),
-        ],
-      ),
-    ];
+    return List.unmodifiable(_orders);
   }
 
-  List<DispatchRoute> getDispatchRoutes() {
-    return const [
-      DispatchRoute(
-        id: 'RT-A',
-        routeName: 'Route A — North Azamgarh',
-        assignedDriver: 'Manoj Yadav',
-        driverPhone: '+91 94151 77889',
-        stopCount: 6,
-        distanceKm: 14.5,
-        estDuration: '1 hr 45 min',
-        status: 'Ready',
-        shopNames: ['Sharma General Store', 'Bharat Daily Mart', 'Kisan Seva Kendra'],
-      ),
-      DispatchRoute(
-        id: 'RT-B',
-        routeName: 'Route B — Main Bazar & Civil Lines',
-        assignedDriver: 'Suresh Verma',
-        driverPhone: '+91 98390 44556',
-        stopCount: 8,
-        distanceKm: 11.2,
-        estDuration: '2 hr 10 min',
-        status: 'In Transit',
-        shopNames: ['Gupta Kirana Store', 'Anand Super Market', 'Verma Provision Store'],
-      ),
-      DispatchRoute(
-        id: 'RT-C',
-        routeName: 'Route C — Southern Bypass & Nawabganj',
-        assignedDriver: 'Amit Kumar',
-        driverPhone: '+91 91290 88990',
-        stopCount: 4,
-        distanceKm: 19.8,
-        estDuration: '1 hr 30 min',
-        status: 'Ready',
-        shopNames: ['Singh Traders', 'Chaurasia Store', 'Om Provision'],
-      ),
-    ];
+  DistributorOrder? getOrderById(String id) {
+    try {
+      return _orders.firstWhere((o) => o.id == id);
+    } catch (_) {
+      return null;
+    }
   }
+
+  void updateOrderStatus(
+    String orderId,
+    String newStatus, {
+    String? note,
+    String performedBy = 'Distributor',
+  }) {
+    final idx = _orders.indexWhere((o) => o.id == orderId);
+    if (idx != -1) {
+      final current = _orders[idx];
+      final history = List<String>.from(current.statusHistory)
+        ..insert(
+          0,
+          'Status updated to $newStatus by $performedBy${note != null ? ' ($note)' : ''}',
+        );
+      _orders[idx] = current.copyWith(
+        status: newStatus,
+        statusHistory: history,
+      );
+    }
+  }
+
+  void addOrder(DistributorOrder order) {
+    _orders.insert(0, order);
+  }
+
+  final List<DispatchRoute> _dispatchRoutes = [
+    // 1. Reference Route A - Main Market
+    DispatchRoute(
+      id: 'RT-A',
+      routeName: 'Route A - Main Market',
+      assignedDriver: 'Manoj Yadav',
+      driverPhone: '+91 94151 77889',
+      vehicleNumber: 'UP-50-AT-4412',
+      stopCount: 5,
+      distanceKm: 18.0,
+      estDuration: '2h 30m',
+      status: 'On Route',
+      dispatchDate: DateTime(2025, 4, 24),
+      shopNames: const [
+        'Sharma Gen. Store',
+        'Gupta Kirana Store',
+        'Bharat Daily Mart',
+        'Kisan Seva Kendra',
+        'Chaurasia Brothers',
+      ],
+      stops: const [
+        RouteStop(
+          sequence: 1,
+          shopId: 'SH-01',
+          shopName: 'Sharma Gen. Store',
+          address: 'Deoganj, Azamgarh',
+          orderId: 'ORD-9201',
+          orderAmount: 2460.0,
+          status: 'Delivered',
+        ),
+        RouteStop(
+          sequence: 2,
+          shopId: 'SH-02',
+          shopName: 'Gupta Kirana Store',
+          address: 'Main Bazar, Azamgarh',
+          orderId: 'ORD-9202',
+          orderAmount: 4120.0,
+          status: 'In Transit',
+        ),
+        RouteStop(
+          sequence: 3,
+          shopId: 'SH-05',
+          shopName: 'Bharat Daily Mart',
+          address: 'Station Road, Azamgarh',
+          orderId: 'ORD-9190',
+          orderAmount: 3400.0,
+          status: 'Pending',
+        ),
+        RouteStop(
+          sequence: 4,
+          shopId: 'SH-06',
+          shopName: 'Kisan Seva Kendra',
+          address: 'Mandi Samiti, Azamgarh',
+          orderId: 'ORD-9185',
+          orderAmount: 1850.0,
+          status: 'Pending',
+        ),
+        RouteStop(
+          sequence: 5,
+          shopId: 'SH-07',
+          shopName: 'Chaurasia Brothers',
+          address: 'Kotwali Crossing, Azamgarh',
+          orderId: 'ORD-9180',
+          orderAmount: 2900.0,
+          status: 'Pending',
+        ),
+      ],
+      orderIds: const [
+        'ORD-9201',
+        'ORD-9202',
+        'ORD-9190',
+        'ORD-9185',
+        'ORD-9180',
+      ],
+      statusHistory: const [
+        'Route created & orders batched for 24 Apr 2025',
+        'Driver Manoj Yadav assigned with Vehicle UP-50-AT-4412',
+        'Departed Azamgarh Central Depot - On Route',
+      ],
+    ),
+
+    // 2. Reference Route B - Mubarikabad
+    DispatchRoute(
+      id: 'RT-B',
+      routeName: 'Route B - Mubarikabad',
+      assignedDriver: 'Suresh Verma',
+      driverPhone: '+91 98390 44556',
+      vehicleNumber: 'UP-50-BX-1022',
+      stopCount: 5,
+      distanceKm: 18.0,
+      estDuration: '2h 10m',
+      status: 'Ready',
+      dispatchDate: DateTime(2025, 4, 24),
+      shopNames: const [
+        'Verma Provision Store',
+        'Anand Super Market',
+        'Mubarikabad Mini Mart',
+        'Ali Kirana Store',
+        'New Janta Store',
+      ],
+      stops: const [
+        RouteStop(
+          sequence: 1,
+          shopId: 'SH-03',
+          shopName: 'Verma Provision Store',
+          address: 'Kachhpura, Mubarikabad',
+          orderId: 'ORD-9195',
+          orderAmount: 2780.0,
+          status: 'Pending',
+        ),
+        RouteStop(
+          sequence: 2,
+          shopId: 'SH-08',
+          shopName: 'Anand Super Market',
+          address: 'Bus Stand Road, Mubarikabad',
+          orderId: 'ORD-9192',
+          orderAmount: 5100.0,
+          status: 'Pending',
+        ),
+        RouteStop(
+          sequence: 3,
+          shopId: 'SH-09',
+          shopName: 'Mubarikabad Mini Mart',
+          address: 'Near Old Post Office, Mubarikabad',
+          orderId: 'ORD-9187',
+          orderAmount: 2200.0,
+          status: 'Pending',
+        ),
+        RouteStop(
+          sequence: 4,
+          shopId: 'SH-10',
+          shopName: 'Ali Kirana Store',
+          address: 'Jama Masjid Market, Mubarikabad',
+          orderId: 'ORD-9184',
+          orderAmount: 1950.0,
+          status: 'Pending',
+        ),
+        RouteStop(
+          sequence: 5,
+          shopId: 'SH-11',
+          shopName: 'New Janta Store',
+          address: 'Hospital Square, Mubarikabad',
+          orderId: 'ORD-9179',
+          orderAmount: 3150.0,
+          status: 'Pending',
+        ),
+      ],
+      orderIds: const [
+        'ORD-9195',
+        'ORD-9192',
+        'ORD-9187',
+        'ORD-9184',
+        'ORD-9179',
+      ],
+      statusHistory: const [
+        'Route planned for 24 Apr 2025',
+        'Staging bay loading verified',
+        'Status marked Ready for departure',
+      ],
+    ),
+
+    // 3. Reference Route C - Deotgaon
+    DispatchRoute(
+      id: 'RT-C',
+      routeName: 'Route C - Deotgaon',
+      assignedDriver: 'Amit Kumar',
+      driverPhone: '+91 91290 88990',
+      vehicleNumber: 'UP-50-CK-7890',
+      stopCount: 4,
+      distanceKm: 16.0,
+      estDuration: '1h 45m',
+      status: 'Pending',
+      dispatchDate: DateTime(2025, 4, 24),
+      shopNames: const [
+        'Singh Traders',
+        'Deotgaon Farmers Mart',
+        'Patel Traders',
+        'Kashi General Store',
+      ],
+      stops: const [
+        RouteStop(
+          sequence: 1,
+          shopId: 'SH-04',
+          shopName: 'Singh Traders',
+          address: 'Nawabganj Bypass, Deotgaon',
+          orderId: 'ORD-9188',
+          orderAmount: 6000.0,
+          status: 'Pending',
+        ),
+        RouteStop(
+          sequence: 2,
+          shopId: 'SH-12',
+          shopName: 'Deotgaon Farmers Mart',
+          address: 'Rural Link Road, Deotgaon',
+          orderId: 'ORD-9182',
+          orderAmount: 2450.0,
+          status: 'Pending',
+        ),
+        RouteStop(
+          sequence: 3,
+          shopId: 'SH-13',
+          shopName: 'Patel Traders',
+          address: 'Panchayat Bhavan Road, Deotgaon',
+          orderId: 'ORD-9178',
+          orderAmount: 3800.0,
+          status: 'Pending',
+        ),
+        RouteStop(
+          sequence: 4,
+          shopId: 'SH-14',
+          shopName: 'Kashi General Store',
+          address: 'East Canal Colony, Deotgaon',
+          orderId: 'ORD-9175',
+          orderAmount: 1600.0,
+          status: 'Pending',
+        ),
+      ],
+      orderIds: const ['ORD-9188', 'ORD-9182', 'ORD-9178', 'ORD-9175'],
+      statusHistory: const [
+        'Route draft generated for 24 Apr 2025',
+        'Awaiting final stock picking completion',
+      ],
+    ),
+
+    // 4. Reference Route D - Kochbazar
+    DispatchRoute(
+      id: 'RT-D',
+      routeName: 'Route D - Kochbazar',
+      assignedDriver: 'Rakesh Bind',
+      driverPhone: '+91 97920 33441',
+      vehicleNumber: 'UP-50-DH-5521',
+      stopCount: 5,
+      distanceKm: 24.0,
+      estDuration: '3h 20m',
+      status: 'Not Started',
+      dispatchDate: DateTime(2025, 4, 24),
+      shopNames: const [
+        'Om Provision Store',
+        'Maa Durga Kirana',
+        'Bholenath Trading',
+        'Kochbazar Fresh Point',
+        'Shree Ram Departmental',
+      ],
+      stops: const [
+        RouteStop(
+          sequence: 1,
+          shopId: 'SH-15',
+          shopName: 'Om Provision Store',
+          address: 'North Crossing, Kochbazar',
+          orderId: 'ORD-9172',
+          orderAmount: 2100.0,
+          status: 'Pending',
+        ),
+        RouteStop(
+          sequence: 2,
+          shopId: 'SH-16',
+          shopName: 'Maa Durga Kirana',
+          address: 'Main Chowk, Kochbazar',
+          orderId: 'ORD-9170',
+          orderAmount: 3250.0,
+          status: 'Pending',
+        ),
+        RouteStop(
+          sequence: 3,
+          shopId: 'SH-17',
+          shopName: 'Bholenath Trading',
+          address: 'Grain Market, Kochbazar',
+          orderId: 'ORD-9168',
+          orderAmount: 4800.0,
+          status: 'Pending',
+        ),
+        RouteStop(
+          sequence: 4,
+          shopId: 'SH-18',
+          shopName: 'Kochbazar Fresh Point',
+          address: 'Cinema Road, Kochbazar',
+          orderId: 'ORD-9165',
+          orderAmount: 1950.0,
+          status: 'Pending',
+        ),
+        RouteStop(
+          sequence: 5,
+          shopId: 'SH-19',
+          shopName: 'Shree Ram Departmental',
+          address: 'Outer Ring Road, Kochbazar',
+          orderId: 'ORD-9162',
+          orderAmount: 2700.0,
+          status: 'Pending',
+        ),
+      ],
+      orderIds: const [
+        'ORD-9172',
+        'ORD-9170',
+        'ORD-9168',
+        'ORD-9165',
+        'ORD-9162',
+      ],
+      statusHistory: const [
+        'Route mapped for 24 Apr 2025 afternoon dispatch wave',
+      ],
+    ),
+  ];
+
+  List<DispatchRoute> getDispatchRoutes({DateTime? forDate}) {
+    if (forDate == null) {
+      return List.unmodifiable(_dispatchRoutes);
+    }
+    return _dispatchRoutes
+        .where(
+          (r) =>
+              r.dispatchDate.year == forDate.year &&
+              r.dispatchDate.month == forDate.month &&
+              r.dispatchDate.day == forDate.day,
+        )
+        .toList();
+  }
+
+  DispatchRoute? getDispatchRouteById(String id) {
+    try {
+      return _dispatchRoutes.firstWhere((r) => r.id == id);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  void updateRouteStatus(String routeId, String newStatus, {String? note}) {
+    final idx = _dispatchRoutes.indexWhere((r) => r.id == routeId);
+    if (idx != -1) {
+      final current = _dispatchRoutes[idx];
+      final history = List<String>.from(current.statusHistory)
+        ..insert(
+          0,
+          'Status updated to $newStatus${note != null ? ' ($note)' : ''}',
+        );
+      _dispatchRoutes[idx] = current.copyWith(
+        status: newStatus,
+        statusHistory: history,
+      );
+    }
+  }
+
+  final List<Shipment> _shipments = [
+    // 1. Reference Shipment 1 (Delivered)
+    const Shipment(
+      id: 'SHP-01',
+      awbNumber: 'AWB0012345',
+      orderId: 'ORD-9201',
+      shopName: 'Sharma Gen. Store',
+      productName: 'Rice (25kg)',
+      quantity: 12,
+      productSummary: '12 units Rice (25kg)',
+      status: 'Delivered',
+      timestamp: 'Today, 10:24 AM',
+      lastUpdate: 'Handover complete with Shop OTP',
+      driverName: 'Manoj Yadav',
+      driverPhone: '+91 94151 77889',
+      vehicleNumber: 'UP-50-AT-4412',
+      deliveryAddress: 'Deoganj, Azamgarh',
+      trackingSteps: [
+        TrackingStep(
+          title: 'Order Confirmed',
+          time: 'Today, 08:00 AM',
+          isCompleted: true,
+          description: 'Order confirmed and inventory locked',
+        ),
+        TrackingStep(
+          title: 'Dispatched from Hub',
+          time: 'Today, 08:45 AM',
+          isCompleted: true,
+          description: 'Loaded onto Vehicle UP-50-AT-4412',
+        ),
+        TrackingStep(
+          title: 'Out for Delivery',
+          time: 'Today, 09:30 AM',
+          isCompleted: true,
+          description: 'Driver Manoj Yadav en route to Sharma Gen. Store',
+        ),
+        TrackingStep(
+          title: 'Delivered Successfully',
+          time: 'Today, 10:24 AM',
+          isCompleted: true,
+          description: 'Delivered and verified via shop OTP',
+        ),
+      ],
+    ),
+
+    // 2. Reference Shipment 2 (In Transit)
+    const Shipment(
+      id: 'SHP-02',
+      awbNumber: 'AWB0012356',
+      orderId: 'ORD-9202',
+      shopName: 'Gupta Kirana Store',
+      productName: 'Cooking Oil (1L)',
+      quantity: 10,
+      productSummary: '10 units Cooking Oil (1L)',
+      status: 'In Transit',
+      timestamp: 'Today, 08:45 AM',
+      lastUpdate: 'En route via Main Market bypass',
+      driverName: 'Manoj Yadav',
+      driverPhone: '+91 94151 77889',
+      vehicleNumber: 'UP-50-AT-4412',
+      deliveryAddress: 'Main Bazar, Azamgarh',
+      trackingSteps: [
+        TrackingStep(
+          title: 'Order Confirmed',
+          time: 'Today, 07:30 AM',
+          isCompleted: true,
+          description: 'Order processed for delivery wave 1',
+        ),
+        TrackingStep(
+          title: 'Dispatched from Hub',
+          time: 'Today, 08:45 AM',
+          isCompleted: true,
+          description: 'Departed Azamgarh Central Depot',
+        ),
+        TrackingStep(
+          title: 'In Transit',
+          time: 'Today, 09:15 AM',
+          isCompleted: true,
+          description: 'Approaching Main Bazar sector',
+        ),
+        TrackingStep(
+          title: 'Delivery Handover',
+          time: 'Expected by 11:30 AM',
+          isCompleted: false,
+          description: 'Awaiting shop arrival',
+        ),
+      ],
+    ),
+
+    // 3. Reference Shipment 3 (Out for Delivery)
+    const Shipment(
+      id: 'SHP-03',
+      awbNumber: 'AWB0012367',
+      orderId: 'ORD-9195',
+      shopName: 'Verma Provision Store',
+      productName: 'Wheat Flour (10kg)',
+      quantity: 8,
+      productSummary: '8 units Wheat Flour (10kg)',
+      status: 'Out for Delivery',
+      timestamp: 'Today, 07:25 AM',
+      lastUpdate: 'Assigned to delivery route B',
+      driverName: 'Suresh Verma',
+      driverPhone: '+91 98390 44556',
+      vehicleNumber: 'UP-50-BX-1022',
+      deliveryAddress: 'Kachhpura, Mubarikabad',
+      trackingSteps: [
+        TrackingStep(
+          title: 'Order Confirmed',
+          time: 'Today, 06:45 AM',
+          isCompleted: true,
+          description: 'Stock verified in bay 2',
+        ),
+        TrackingStep(
+          title: 'Out for Delivery',
+          time: 'Today, 07:25 AM',
+          isCompleted: true,
+          description: 'Assigned to driver Suresh Verma',
+        ),
+        TrackingStep(
+          title: 'Arriving at Shop',
+          time: 'Expected by 01:00 PM',
+          isCompleted: false,
+          description: 'Estimated arrival in 45 minutes',
+        ),
+      ],
+    ),
+
+    // 4. Reference Shipment 4 (Scheduled)
+    const Shipment(
+      id: 'SHP-04',
+      awbNumber: 'AWB0012378',
+      orderId: 'ORD-9188',
+      shopName: 'Singh Traders',
+      productName: 'Sugar (1kg)',
+      quantity: 20,
+      productSummary: '20 units Sugar (1kg)',
+      status: 'Scheduled',
+      timestamp: 'Today, 06:30 PM',
+      lastUpdate: 'Scheduled for evening batch',
+      driverName: 'Amit Kumar',
+      driverPhone: '+91 91290 88990',
+      vehicleNumber: 'UP-50-CK-7890',
+      deliveryAddress: 'Nawabganj, Azamgarh',
+      trackingSteps: [
+        TrackingStep(
+          title: 'Shipment Scheduled',
+          time: 'Today, 09:00 AM',
+          isCompleted: true,
+          description: 'Delivery window allocated for 06:30 PM wave',
+        ),
+        TrackingStep(
+          title: 'Staging & Loading',
+          time: 'Scheduled 04:30 PM',
+          isCompleted: false,
+          description: 'Goods to be transferred to dispatch deck',
+        ),
+        TrackingStep(
+          title: 'Out for Delivery',
+          time: 'Scheduled 05:45 PM',
+          isCompleted: false,
+          description: 'Pending driver check-in',
+        ),
+      ],
+    ),
+  ];
 
   List<Shipment> getShipments() {
-    return const [
-      Shipment(
-        id: 'SHP-801',
-        awbNumber: 'SE-AWB-98402',
-        orderId: 'ORD-9201',
-        shopName: 'Sharma General Store',
-        productSummary: '5x Rice (25kg), 15x Cooking Oil',
-        status: 'Out for Delivery',
-        lastUpdate: '15 mins ago • Van #UP-50-AT-4412',
-        trackingSteps: [
+    return List.unmodifiable(_shipments);
+  }
+
+  Shipment? getShipmentByAwb(String awb) {
+    try {
+      return _shipments.firstWhere(
+        (s) => s.awbNumber.toLowerCase() == awb.trim().toLowerCase(),
+      );
+    } catch (_) {
+      return null;
+    }
+  }
+
+  void updateShipmentStatus(
+    String awbNumber,
+    String newStatus, {
+    String? note,
+  }) {
+    final idx = _shipments.indexWhere((s) => s.awbNumber == awbNumber);
+    if (idx != -1) {
+      final current = _shipments[idx];
+      final updatedSteps = List<TrackingStep>.from(current.trackingSteps)
+        ..add(
           TrackingStep(
-            title: 'Order Confirmed',
-            time: 'Today, 09:15 AM',
+            title: 'Status changed to $newStatus',
+            time: 'Just now',
             isCompleted: true,
-            description: 'Order validated against warehouse allocation',
+            description: note ?? 'Status update recorded in tracking system',
           ),
-          TrackingStep(
-            title: 'Packed at Hub',
-            time: 'Today, 10:30 AM',
-            isCompleted: true,
-            description: 'Cartons sealed & scanned at Azamgarh Central Depot',
-          ),
-          TrackingStep(
-            title: 'Out for Delivery',
-            time: 'Today, 12:45 PM',
-            isCompleted: true,
-            description: 'Assigned to Driver Manoj Yadav (Contact: +91 94151 77889)',
-          ),
-          TrackingStep(
-            title: 'Delivery Confirmation',
-            time: 'Expected by 02:30 PM',
-            isCompleted: false,
-            description: 'Shop owner OTP required for handover',
-          ),
-        ],
-      ),
-      Shipment(
-        id: 'SHP-802',
-        awbNumber: 'SE-AWB-98390',
-        orderId: 'ORD-9202',
-        shopName: 'Gupta Kirana Store',
-        productSummary: '20x Wheat Flour, 150x Sugar',
-        status: 'Packed at Hub',
-        lastUpdate: '1 hour ago',
-        trackingSteps: [
-          TrackingStep(
-            title: 'Order Confirmed',
-            time: 'Today, 08:30 AM',
-            isCompleted: true,
-            description: 'Demand requisition fulfilled',
-          ),
-          TrackingStep(
-            title: 'Packed at Hub',
-            time: 'Today, 11:00 AM',
-            isCompleted: true,
-            description: 'Pallet loading in staging bay 4',
-          ),
-          TrackingStep(
-            title: 'Out for Delivery',
-            time: 'Scheduled 03:00 PM',
-            isCompleted: false,
-            description: 'Awaiting truck arrival',
-          ),
-        ],
-      ),
-    ];
+        );
+      _shipments[idx] = current.copyWith(
+        status: newStatus,
+        lastUpdate: note ?? 'Updated to $newStatus',
+        trackingSteps: updatedSteps,
+      );
+    }
   }
 
   List<AppAlertNotification> getNotifications() {
@@ -653,7 +1486,8 @@ class DistributorRepository {
       shopName: 'Sharma Gen. Store',
       status: 'Visited',
       scheduledTime: '9:30 AM',
-      visitNotes: 'Collected demand for 20 bags Rice (25kg). Payment received via UPI.',
+      visitNotes:
+          'Collected demand for 20 bags Rice (25kg). Payment received via UPI.',
       collectedDemandAmount: 25000.0,
       visitedAt: '9:32 AM',
     ),
@@ -663,7 +1497,8 @@ class DistributorRepository {
       shopName: 'Gupta Kirana Store',
       status: 'Visited',
       scheduledTime: '11:45 AM',
-      visitNotes: 'Inventory verified. Low on Cooking Oil, placed refill request.',
+      visitNotes:
+          'Inventory verified. Low on Cooking Oil, placed refill request.',
       collectedDemandAmount: 18400.0,
       visitedAt: '11:50 AM',
     ),
@@ -685,7 +1520,12 @@ class DistributorRepository {
 
   List<SalesmanVisit> getSalesmanVisits() => List.unmodifiable(_salesmanVisits);
 
-  void updateSalesmanVisit(String id, String status, {String? notes, double? orderAmount}) {
+  void updateSalesmanVisit(
+    String id,
+    String status, {
+    String? notes,
+    double? orderAmount,
+  }) {
     final idx = _salesmanVisits.indexWhere((v) => v.id == id);
     if (idx != -1) {
       final current = _salesmanVisits[idx];
@@ -710,7 +1550,11 @@ class DistributorRepository {
         {'category': 'Edible Oils', 'value': 480000.0, 'items': 10},
         {'category': 'Flours & Atta', 'value': 310000.0, 'items': 8},
         {'category': 'Sweeteners & Sugar', 'value': 180000.0, 'items': 6},
-        {'category': 'Household & Personal Care', 'value': 120000.0, 'items': 10},
+        {
+          'category': 'Household & Personal Care',
+          'value': 120000.0,
+          'items': 10,
+        },
       ],
     );
   }
@@ -731,16 +1575,25 @@ class DistributorRepository {
   }
 
   PurchaseReportSummary getPurchaseReport() {
-    final total = _suppliers.fold<double>(0.0, (sum, s) => sum + s.totalPurchases);
+    final total = _suppliers.fold<double>(
+      0.0,
+      (sum, s) => sum + s.totalPurchases,
+    );
     return PurchaseReportSummary(
       totalPurchases: total,
       outstandingPayable: 185000.0,
-      activeSuppliersCount: _suppliers.where((s) => s.status == 'Active').length,
-      topSuppliers: _suppliers.map((s) => {
-        'name': s.name,
-        'amount': s.totalPurchases,
-        'status': s.status,
-      }).toList(),
+      activeSuppliersCount: _suppliers
+          .where((s) => s.status == 'Active')
+          .length,
+      topSuppliers: _suppliers
+          .map(
+            (s) => {
+              'name': s.name,
+              'amount': s.totalPurchases,
+              'status': s.status,
+            },
+          )
+          .toList(),
     );
   }
 
@@ -763,5 +1616,63 @@ class DistributorRepository {
       netMarginPercent: netMargin,
     );
   }
-}
 
+  // --- Stock Movement History (Section 5.8) ---
+  final List<StockMovement> _movements = [
+    StockMovement(
+      id: 'MOV-101',
+      itemId: 'INV-01',
+      productName: 'Rice (25kg)',
+      type: 'RECEIPT',
+      quantityChange: 150,
+      balanceAfter: 420,
+      reason: 'Inbound PO #PO-8821 from ABC Foods Ltd.',
+      performedBy: 'Warehouse Supervisor',
+      timestamp: DateTime.now().subtract(const Duration(hours: 4)),
+    ),
+    StockMovement(
+      id: 'MOV-102',
+      itemId: 'INV-04',
+      productName: 'Sugar (1kg)',
+      type: 'ISSUE',
+      quantityChange: -60,
+      balanceAfter: 240,
+      reason: 'Dispatched for Route A (Sharma Store)',
+      performedBy: 'Warehouse Dispatcher',
+      timestamp: DateTime.now().subtract(const Duration(hours: 6)),
+    ),
+    StockMovement(
+      id: 'MOV-103',
+      itemId: 'INV-02',
+      productName: 'Cooking Oil (1L)',
+      type: 'ADJUSTMENT',
+      quantityChange: 10,
+      balanceAfter: 360,
+      reason: 'Cycle count physical reconciliation',
+      performedBy: 'Quality Control Lead',
+      timestamp: DateTime.now().subtract(const Duration(days: 1)),
+    ),
+    StockMovement(
+      id: 'MOV-104',
+      itemId: 'INV-05',
+      productName: 'Tea (1kg)',
+      type: 'RECEIPT',
+      quantityChange: 50,
+      balanceAfter: 227,
+      reason: 'Stock replenishment PO #PO-8819',
+      performedBy: 'Warehouse Inward',
+      timestamp: DateTime.now().subtract(const Duration(days: 2)),
+    ),
+  ];
+
+  List<StockMovement> getStockMovements({String? itemId}) {
+    if (itemId != null) {
+      return _movements.where((m) => m.itemId == itemId).toList();
+    }
+    return List.unmodifiable(_movements);
+  }
+
+  void recordStockMovement(StockMovement movement) {
+    _movements.insert(0, movement);
+  }
+}

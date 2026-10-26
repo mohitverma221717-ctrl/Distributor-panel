@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../core/theme/app_theme.dart';
 import '../../data/models/distributor_models.dart';
 import '../../providers/distributor_provider.dart';
@@ -48,9 +49,15 @@ class NotificationsScreen extends ConsumerWidget {
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.35),
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: Colors.white.withOpacity(0.6)),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.6),
+                            ),
                           ),
-                          child: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 18),
+                          child: const Icon(
+                            Icons.arrow_back_ios_new_rounded,
+                            color: Colors.white,
+                            size: 18,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -68,7 +75,11 @@ class NotificationsScreen extends ConsumerWidget {
                         onPressed: () => notificationsNotifier.markAllAsRead(),
                         child: const Text(
                           'Mark All Read',
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                     ],
@@ -81,7 +92,11 @@ class NotificationsScreen extends ConsumerWidget {
                     itemCount: notifications.length,
                     itemBuilder: (context, index) {
                       final n = notifications[index];
-                      return _buildNotificationCard(context, n, notificationsNotifier);
+                      return _buildNotificationCard(
+                        context,
+                        n,
+                        notificationsNotifier,
+                      );
                     },
                   ),
                 ),
@@ -93,7 +108,11 @@ class NotificationsScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildNotificationCard(BuildContext context, AppAlertNotification n, NotificationsNotifier notifier) {
+  Widget _buildNotificationCard(
+    BuildContext context,
+    AppAlertNotification n,
+    NotificationsNotifier notifier,
+  ) {
     IconData icon;
     Color iconColor;
 
@@ -152,7 +171,9 @@ class NotificationsScreen extends ConsumerWidget {
                           n.title,
                           style: TextStyle(
                             fontSize: 14,
-                            fontWeight: n.isRead ? FontWeight.w600 : FontWeight.w800,
+                            fontWeight: n.isRead
+                                ? FontWeight.w600
+                                : FontWeight.w800,
                             color: const Color(0xFF0F172A),
                           ),
                         ),
@@ -170,12 +191,18 @@ class NotificationsScreen extends ConsumerWidget {
                     const SizedBox(height: 3),
                     Text(
                       n.message,
-                      style: const TextStyle(fontSize: 12.5, color: Color(0xFF475569)),
+                      style: const TextStyle(
+                        fontSize: 12.5,
+                        color: Color(0xFF475569),
+                      ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       n.timeAgo,
-                      style: const TextStyle(fontSize: 11, color: Color(0xFF94A3B8)),
+                      style: const TextStyle(
+                        fontSize: 11,
+                        color: Color(0xFF94A3B8),
+                      ),
                     ),
                   ],
                 ),

@@ -24,7 +24,8 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveGradient = gradient ??
+    final effectiveGradient =
+        gradient ??
         const LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
@@ -124,10 +125,7 @@ class OutlinedGlassButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.38),
         borderRadius: BorderRadius.circular(25),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.75),
-          width: 1.2,
-        ),
+        border: Border.all(color: Colors.white.withOpacity(0.75), width: 1.2),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.04),

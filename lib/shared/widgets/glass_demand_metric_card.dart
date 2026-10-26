@@ -34,10 +34,7 @@ class GlassDemandMetricCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: Colors.white.withOpacity(0.72),
-            width: 1.2,
-          ),
+          border: Border.all(color: Colors.white.withOpacity(0.72), width: 1.2),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.04),
@@ -69,13 +66,7 @@ class GlassDemandMetricCard extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Center(
-                child: Icon(
-                  icon,
-                  color: Colors.white,
-                  size: 19,
-                ),
-              ),
+              child: Center(child: Icon(icon, color: Colors.white, size: 19)),
             ),
             const SizedBox(height: 7),
             // Title

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/responsive.dart';
 import '../../providers/distributor_provider.dart';
@@ -37,13 +38,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final mobile = _mobileController.text.trim();
     final password = _passwordController.text;
 
-    final success = await ref.read(authProvider.notifier).login(mobile, password);
+    final success = await ref
+        .read(authProvider.notifier)
+        .login(mobile, password);
 
     if (mounted) {
       if (success) {
         context.go('/dashboard');
       } else {
-        final err = ref.read(authProvider).errorMessage ?? 'Login failed. Please check credentials.';
+        final err =
+            ref.read(authProvider).errorMessage ??
+            'Login failed. Please check credentials.';
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(err),
@@ -63,7 +68,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       builder: (ctx) {
-        final codes = ['+91 (India)', '+971 (UAE)', '+65 (Singapore)', '+1 (US/Canada)'];
+        final codes = [
+          '+91 (India)',
+          '+971 (UAE)',
+          '+65 (Singapore)',
+          '+1 (US/Canada)',
+        ];
         return SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -80,7 +90,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   return ListTile(
                     title: Text(c),
                     trailing: _selectedCountryCode == code
-                        ? const Icon(Icons.check, color: AppColors.primaryOrange)
+                        ? const Icon(
+                            Icons.check,
+                            color: AppColors.primaryOrange,
+                          )
                         : null,
                     onTap: () {
                       setState(() => _selectedCountryCode = code);
@@ -220,7 +233,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                         height: 28,
                                         decoration: BoxDecoration(
                                           color: const Color(0xFFFFE8D6),
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
                                         ),
                                         child: const Icon(
                                           Icons.phone_android_rounded,
@@ -250,7 +265,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                         height: 28,
                                         decoration: BoxDecoration(
                                           color: const Color(0xFFFFE8D6),
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
                                         ),
                                         child: const Icon(
                                           Icons.lock_outline_rounded,
@@ -268,7 +285,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                         ),
                                         onPressed: () {
                                           setState(() {
-                                            _obscurePassword = !_obscurePassword;
+                                            _obscurePassword =
+                                                !_obscurePassword;
                                           });
                                         },
                                       ),
@@ -296,9 +314,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                                     // Forgot Password Action
                                     TextButton(
-                                      onPressed: () => context.push('/forgot-password'),
+                                      onPressed: () =>
+                                          context.push('/forgot-password'),
                                       style: TextButton.styleFrom(
-                                        foregroundColor: const Color(0xFFD9480F),
+                                        foregroundColor: const Color(
+                                          0xFFD9480F,
+                                        ),
                                         padding: const EdgeInsets.symmetric(
                                           horizontal: 10,
                                           vertical: 4,
@@ -307,7 +328,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                       child: Text(
                                         'Forgot Password?',
                                         style: TextStyle(
-                                          fontSize: context.sp(isSmall ? 12.5 : 13.5),
+                                          fontSize: context.sp(
+                                            isSmall ? 12.5 : 13.5,
+                                          ),
                                           fontWeight: FontWeight.w600,
                                           color: const Color(0xFFC2410C),
                                         ),
@@ -316,30 +339,41 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                                     // OR Divider
                                     Padding(
-                                      padding: EdgeInsets.symmetric(vertical: vGap(isSmall ? 2 : 4)),
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: vGap(isSmall ? 2 : 4),
+                                      ),
                                       child: Row(
                                         children: [
                                           Expanded(
                                             child: Container(
                                               height: 1,
-                                              color: Colors.white.withOpacity(0.55),
+                                              color: Colors.white.withOpacity(
+                                                0.55,
+                                              ),
                                             ),
                                           ),
                                           Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 12,
+                                            ),
                                             child: Text(
                                               'OR',
                                               style: TextStyle(
-                                                fontSize: context.sp(isSmall ? 11 : 12),
+                                                fontSize: context.sp(
+                                                  isSmall ? 11 : 12,
+                                                ),
                                                 fontWeight: FontWeight.w600,
-                                                color: const Color(0xFF475569).withOpacity(0.8),
+                                                color: const Color(0xFF475569)
+                                                    .withOpacity(0.8),
                                               ),
                                             ),
                                           ),
                                           Expanded(
                                             child: Container(
                                               height: 1,
-                                              color: Colors.white.withOpacity(0.55),
+                                              color: Colors.white.withOpacity(
+                                                0.55,
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -350,25 +384,34 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     // Register Here Action
                                     OutlinedGlassButton(
                                       height: isSmall ? 44 : 48,
-                                      onPressed: () => context.push('/register'),
+                                      onPressed: () =>
+                                          context.push('/register'),
                                       child: FittedBox(
                                         fit: BoxFit.scaleDown,
                                         child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                          ),
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               Container(
                                                 width: 22,
                                                 height: 22,
                                                 decoration: BoxDecoration(
-                                                  color: const Color(0xFFFFEDD5),
-                                                  borderRadius: BorderRadius.circular(6),
+                                                  color: const Color(
+                                                    0xFFFFEDD5,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(6),
                                                 ),
                                                 child: const Icon(
-                                                  Icons.person_add_alt_1_rounded,
-                                                  color: AppColors.primaryOrange,
+                                                  Icons
+                                                      .person_add_alt_1_rounded,
+                                                  color:
+                                                      AppColors.primaryOrange,
                                                   size: 14,
                                                 ),
                                               ),
@@ -376,17 +419,25 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                               Text(
                                                 'New Distributor? ',
                                                 style: TextStyle(
-                                                  fontSize: context.sp(isSmall ? 12 : 13.5),
+                                                  fontSize: context.sp(
+                                                    isSmall ? 12 : 13.5,
+                                                  ),
                                                   fontWeight: FontWeight.w600,
-                                                  color: const Color(0xFF334155),
+                                                  color: const Color(
+                                                    0xFF334155,
+                                                  ),
                                                 ),
                                               ),
                                               Text(
                                                 'Register Here →',
                                                 style: TextStyle(
-                                                  fontSize: context.sp(isSmall ? 12 : 13.5),
+                                                  fontSize: context.sp(
+                                                    isSmall ? 12 : 13.5,
+                                                  ),
                                                   fontWeight: FontWeight.w700,
-                                                  color: const Color(0xFFC2410C),
+                                                  color: const Color(
+                                                    0xFFC2410C,
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -398,7 +449,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                                     // Secure & Trusted Badge
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         const Icon(
                                           Icons.verified_user_rounded,
@@ -409,9 +461,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                         Text(
                                           'Secure & Trusted',
                                           style: TextStyle(
-                                            fontSize: context.sp(isSmall ? 11 : 12),
+                                            fontSize: context.sp(
+                                              isSmall ? 11 : 12,
+                                            ),
                                             fontWeight: FontWeight.w600,
-                                            color: const Color(0xFF334155).withOpacity(0.85),
+                                            color: const Color(0xFF334155)
+                                                .withOpacity(0.85),
                                           ),
                                         ),
                                       ],

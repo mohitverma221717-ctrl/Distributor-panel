@@ -1,5 +1,7 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
+
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/responsive.dart';
 
@@ -31,10 +33,7 @@ class ShopEasyBottomNav extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.38),
           borderRadius: BorderRadius.circular(32),
-          border: Border.all(
-            color: Colors.white.withOpacity(0.68),
-            width: 1.2,
-          ),
+          border: Border.all(color: Colors.white.withOpacity(0.68), width: 1.2),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.08),
@@ -61,9 +60,24 @@ class ShopEasyBottomNav extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildNavItem(context, 0, Icons.home_rounded, 'Home'),
-                  _buildNavItem(context, 1, Icons.trending_up_rounded, 'Demand'),
-                  _buildNavItem(context, 2, Icons.inventory_2_rounded, 'Products'),
-                  _buildNavItem(context, 3, Icons.assignment_outlined, 'Orders'),
+                  _buildNavItem(
+                    context,
+                    1,
+                    Icons.trending_up_rounded,
+                    'Demand',
+                  ),
+                  _buildNavItem(
+                    context,
+                    2,
+                    Icons.shopping_bag_rounded,
+                    'Orders',
+                  ),
+                  _buildNavItem(
+                    context,
+                    3,
+                    Icons.inventory_2_rounded,
+                    'Inventory',
+                  ),
                   _buildNavItem(context, 4, Icons.grid_view_rounded, 'More'),
                 ],
               ),
@@ -74,7 +88,12 @@ class ShopEasyBottomNav extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem(BuildContext context, int index, IconData icon, String label) {
+  Widget _buildNavItem(
+    BuildContext context,
+    int index,
+    IconData icon,
+    String label,
+  ) {
     final isSelected = currentIndex == index;
     final isSmall = context.isSmallPhone;
     final isVerySmall = context.isVerySmallPhone;
@@ -98,17 +117,17 @@ class ShopEasyBottomNav extends StatelessWidget {
               ),
         decoration: isSelected
             ? BoxDecoration(
-                color: const Color(0xFFFFE0CC).withOpacity(0.65),
+                color: const Color(0xFFFFE0CC).withOpacity(0.72),
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(
-                  color: AppColors.primaryOrange.withOpacity(0.4),
+                  color: AppColors.primaryOrange.withOpacity(0.5),
                   width: 1,
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primaryOrange.withOpacity(0.15),
-                    blurRadius: 10,
-                    offset: const Offset(0, 2),
+                    color: AppColors.primaryOrange.withOpacity(0.2),
+                    blurRadius: 12,
+                    offset: const Offset(0, 3),
                   ),
                 ],
               )
@@ -128,7 +147,7 @@ class ShopEasyBottomNav extends StatelessWidget {
               label,
               style: TextStyle(
                 fontSize: isVerySmall ? 9.5 : (isSmall ? 10.5 : 11),
-                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                fontWeight: isSelected ? FontWeight.w800 : FontWeight.w500,
                 color: isSelected
                     ? AppColors.primaryOrange
                     : const Color(0xFF64748B),
@@ -137,11 +156,18 @@ class ShopEasyBottomNav extends StatelessWidget {
             if (isSelected) ...[
               const SizedBox(height: 3),
               Container(
-                width: isSmall ? 12 : 16,
+                width: isSmall ? 14 : 18,
                 height: 2.5,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.primaryOrange,
                   borderRadius: BorderRadius.circular(2),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.primaryOrange.withOpacity(0.6),
+                      blurRadius: 4,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
                 ),
               ),
             ] else ...[
