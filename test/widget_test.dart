@@ -47,6 +47,19 @@ void main() {
       expect(find.text('Total Demand'), findsOneWidget);
       expect(find.text('Warehouse Stock'), findsOneWidget);
 
+      // Verify tapping the ShopEasy logo repeatedly does not cause 'No Material widget found'
+      final logoFinder = find.byWidgetPredicate(
+        (w) =>
+            w is Image &&
+            w.image is AssetImage &&
+            (w.image as AssetImage).assetName.contains('shopeasy_bag_logo'),
+      );
+      expect(logoFinder, findsOneWidget);
+      await tester.tap(logoFinder);
+      await tester.pump();
+      await tester.tap(logoFinder);
+      await tester.pump();
+
       await tester.tap(find.byIcon(Icons.notifications_outlined));
       await tester.pumpAndSettle();
     },

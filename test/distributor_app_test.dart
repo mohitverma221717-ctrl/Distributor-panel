@@ -398,11 +398,13 @@ void main() {
     ) async {
       bool notifTapped = false;
       bool profileTapped = false;
+      int logoTapCount = 0;
 
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: ShopEasyHeader(
+              onLogoTap: () => logoTapCount++,
               onNotificationTap: () => notifTapped = true,
               onProfileTap: () => profileTapped = true,
             ),
@@ -413,12 +415,47 @@ void main() {
       expect(find.text('ShopEasy'), findsOneWidget);
       expect(find.byIcon(Icons.notifications_outlined), findsOneWidget);
 
+      // Tap logo repeatedly without 'No Material widget found' error
+      final logoFinder = find.byType(Image).first;
+      await tester.tap(logoFinder);
+      await tester.pump();
+      await tester.tap(logoFinder);
+      await tester.pump();
+      expect(logoTapCount, 2);
+
       await tester.tap(find.byIcon(Icons.notifications_outlined));
       expect(notifTapped, isTrue);
 
       await tester.tap(find.byType(ClipOval));
       expect(profileTapped, isTrue);
     });
+
+    testWidgets(
+      'ShopEasyHeader handles logo tap without external Material ancestor',
+      (WidgetTester tester) async {
+        int logoTapCount = 0;
+
+        // Render directly in Directionality/MaterialApp without Scaffold or Material
+        await tester.pumpWidget(
+          MaterialApp(
+            home: ShopEasyHeader(
+              onLogoTap: () => logoTapCount++,
+            ),
+          ),
+        );
+
+        final logoFinder = find.byType(Image).first;
+        expect(logoFinder, findsOneWidget);
+
+        // Tap repeatedly to verify InkWell finds internal Material ancestor
+        await tester.tap(logoFinder);
+        await tester.pumpAndSettle();
+        await tester.tap(logoFinder);
+        await tester.pumpAndSettle();
+
+        expect(logoTapCount, 2);
+      },
+    );
 
     testWidgets('UI States render Loading, Error, and Empty states', (
       WidgetTester tester,

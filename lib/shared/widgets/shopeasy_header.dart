@@ -17,6 +17,7 @@ class ShopEasyHeader extends StatelessWidget {
   final VoidCallback? onNotificationTap;
   final VoidCallback? onProfileTap;
   final VoidCallback? onMenuTap;
+  final VoidCallback? onLogoTap;
   final bool hasNotification;
   final bool isInGlassCard;
   final bool showSubtitle;
@@ -27,6 +28,7 @@ class ShopEasyHeader extends StatelessWidget {
     this.onNotificationTap,
     this.onProfileTap,
     this.onMenuTap,
+    this.onLogoTap,
     this.hasNotification = true,
     this.isInGlassCard = true,
     this.showSubtitle = false,
@@ -38,34 +40,41 @@ class ShopEasyHeader extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         // 3D ShopEasy Shopping Bag Logo
-        Container(
-          width: 44,
-          height: 44,
-          decoration: BoxDecoration(
+        Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onLogoTap,
             borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.12),
-                blurRadius: 10,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Image.asset(
-            'assets/images/shopeasy_bag_logo.png',
-            fit: BoxFit.contain,
-            errorBuilder: (_, __, ___) => Container(
+            child: Container(
+              width: 44,
+              height: 44,
               decoration: BoxDecoration(
-                gradient: AppColors.orangeGradient,
                 borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.12),
+                    blurRadius: 10,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
               ),
-              child: const Center(
-                child: Text(
-                  'S',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 24,
+              child: Image.asset(
+                'assets/images/shopeasy_bag_logo.png',
+                fit: BoxFit.contain,
+                errorBuilder: (_, __, ___) => Container(
+                  decoration: BoxDecoration(
+                    gradient: AppColors.orangeGradient,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'S',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 24,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -176,14 +185,17 @@ class ShopEasyHeader extends StatelessWidget {
     }
 
     if (!isInGlassCard) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(child: logoAndBrand),
-          const SizedBox(width: 8),
-          rightWidget,
-        ],
+      return Material(
+        color: Colors.transparent,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(child: logoAndBrand),
+            const SizedBox(width: 8),
+            rightWidget,
+          ],
+        ),
       );
     }
 
@@ -205,14 +217,17 @@ class ShopEasyHeader extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(child: logoAndBrand),
-              const SizedBox(width: 8),
-              rightWidget,
-            ],
+          child: Material(
+            color: Colors.transparent,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(child: logoAndBrand),
+                const SizedBox(width: 8),
+                rightWidget,
+              ],
+            ),
           ),
         ),
       ),
